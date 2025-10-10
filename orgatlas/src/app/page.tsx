@@ -8,6 +8,7 @@ import { companies } from "@/data/companies";
 import { BarChart, Building2, Share2, Users, Target, Sparkles, Plug } from "lucide-react";
 import { StatCard } from "@/components/common/StatCard";
 import * as React from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [q, setQ] = React.useState("");
@@ -72,7 +73,7 @@ export default function Home() {
             <div className="text-center text-xs uppercase tracking-widest text-neutral-500">Trusted by research-driven teams</div>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-6 opacity-80">
               {companies.slice(0, 3).map((c) => (
-                <img key={c.id} src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} className="h-6" />
+                <Image key={c.id} src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={96} height={24} className="h-6 w-auto" />
               ))}
             </div>
           </div>
@@ -122,7 +123,7 @@ export default function Home() {
                   <Card className="hover:shadow-sm transition-shadow">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3 text-base">
-                        <img src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} className="h-6" />
+                        <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={96} height={24} className="h-6 w-auto" />
                         {c.name}
                       </CardTitle>
                     </CardHeader>
@@ -241,7 +242,7 @@ export default function Home() {
                   <Card className="hover:shadow-sm transition-shadow">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3 text-base">
-                        <img src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} className="h-6" />
+                        <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={96} height={24} className="h-6 w-auto" />
                         {c.name}
                       </CardTitle>
                     </CardHeader>

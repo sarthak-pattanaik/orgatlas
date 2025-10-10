@@ -12,6 +12,7 @@ import type { Company } from "@/data/companies";
 export function CompanyOrgClient({ slug, data, company }: { slug: string; data: OrgChartData; company?: Company }) {
   const [query, setQuery] = React.useState("");
 
+  const [expanded, setExpanded] = React.useState(false);
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -30,7 +31,12 @@ export function CompanyOrgClient({ slug, data, company }: { slug: string; data: 
         </div>
       </div>
 
-      <div className="mt-2 text-sm text-neutral-600 dark:text-neutral-300 max-w-3xl">{company?.description}</div>
+      <div className="mt-2 text-sm text-neutral-600 dark:text-neutral-300 max-w-3xl">
+        <span className={!expanded ? "line-clamp-2" : undefined}>{company?.description}</span>
+        {company?.description && (
+          <button className="text-xs text-red-500 ml-2" onClick={() => setExpanded((v) => !v)}>{expanded ? "Read less" : "Read more"}</button>
+        )}
+      </div>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 items-start">
         <div className="space-y-3">
@@ -54,7 +60,7 @@ export function CompanyOrgClient({ slug, data, company }: { slug: string; data: 
           </Tabs>
         </div>
         <div>
-          <OrgChartViewer data={data} filterQuery={query} />
+          <OrgChartViewer data={data} filterQuery={query} showCTA={true} />
         </div>
       </div>
     </div>

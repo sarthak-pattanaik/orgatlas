@@ -10,6 +10,7 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   Position,
+  ReactFlowInstance,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import ELK from "elkjs/lib/elk.bundled.js";
@@ -126,12 +127,14 @@ function useElkLayout() {
   }, [elk]);
 }
 
-export function OrgChartViewer({ data, filterQuery }: { data: OrgChartData; filterQuery?: string }) {
+export function OrgChartViewer({ data, filterQuery, showCTA = false }: { data: OrgChartData; filterQuery?: string; showCTA?: boolean }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selected, setSelected] = React.useState<PersonDetails | undefined>(undefined);
   const [open, setOpen] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState<Set<string>>(new Set());
+  const [isFullScreen, setIsFullScreen] = React.useState(false);
+  const rf = React.useRef<ReactFlowInstance | null>(null);
 
   const idToPerson = useMemo(() => {
     const map = new Map<string, PersonNode>();
@@ -228,13 +231,19 @@ export function OrgChartViewer({ data, filterQuery }: { data: OrgChartData; filt
   const nodeTypes = useMemo(() => ({ orgPerson: OrgPersonNode }), []);
 
   return (
-    <div className="h-[600px] w-full border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden">
+    <div className={`relative ${isFullScreen ? "fixed inset-0 z-50" : "h-[600px]"} w-full border border-neutral-200 dark:border-neutral-800 rounded-lg overflow-hidden bg-white dark:bg-neutral-950`}>
+      {/* Toolbar */}
+      <div className="absolute top-2 right-2 z-10 flex items-center gap-2">
+        <Button size="sm" variant="outline" onClick={() => rf.current?.fitView()}>Reset view</Button>
+        <Button size="sm" onClick={() => setIsFullScreen((v) => !v)}>{isFullScreen ? "Exit full screen" : "Full screen"}</Button>
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         fitView
+        onInit={(instance) => (rf.current = instance)}
         nodeTypes={nodeTypes}
         panOnDrag
         zoomOnScroll
@@ -258,6 +267,18 @@ export function OrgChartViewer({ data, filterQuery }: { data: OrgChartData; filt
         <MiniMap />
         <Controls />
       </ReactFlow>
+      {showCTA ? (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="pointer-events-auto max-w-sm p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow">
+            <div className="font-semibold">Unlock full org insights</div>
+            <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">Upgrade to view deep hierarchies, advanced filters, and exports.</div>
+            <div className="mt-3 flex gap-2">
+              <Button size="sm" className="bg-red-500 hover:bg-red-600">Upgrade</Button>
+              <Button size="sm" variant="outline">Learn more</Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
       <PersonDrawer person={selected} open={open} onOpenChange={setOpen} />
     </div>
   );

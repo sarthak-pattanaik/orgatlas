@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { companies } from "@/data/companies";
-import { BarChart, Building2, Share2, Users, Target, Sparkles } from "lucide-react";
+import { BarChart, Building2, Share2, Users, Target, Sparkles, Plug } from "lucide-react";
 import { StatCard } from "@/components/common/StatCard";
 import * as React from "react";
 
@@ -181,6 +181,108 @@ export default function Home() {
                 </Card>
               ))}
             </div>
+          </div>
+
+          {/* Get started */}
+          <div className="mt-20">
+            <h2 className="text-2xl font-bold text-center">Get started in minutes</h2>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">1. Discover companies</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-neutral-600 dark:text-neutral-300">Browse org charts and map the teams you care about.</CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">2. Build people lists</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-neutral-600 dark:text-neutral-300">Save targets by function, seniority, or region.</CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">3. Share & export</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-neutral-600 dark:text-neutral-300">Embed charts or export snapshots for briefs and decks.</CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Popular industries */}
+          <div className="mt-20">
+            <h2 className="text-2xl font-bold">Popular industries</h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {[
+                { label: "Software" },
+                { label: "IT Services" },
+                { label: "AI" },
+                { label: "Fintech" },
+                { label: "Manufacturing" },
+                { label: "Healthcare" },
+              ].map((f) => (
+                <Link key={f.label} href={`/discover?industry=${encodeURIComponent(f.label)}`} className="inline-flex items-center rounded-full border px-3 py-1 text-xs hover:bg-neutral-50 dark:hover:bg-neutral-900">
+                  {f.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Top companies */}
+          <div className="mt-20">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Top companies</h2>
+              <Button asChild variant="link" className="text-red-500">
+                <Link href="/discover">View more</Link>
+              </Button>
+            </div>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {companies.map((c) => (
+                <Link key={c.id} href={`/org/${c.slug}`}>
+                  <Card className="hover:shadow-sm transition-shadow">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-3 text-base">
+                        <img src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} className="h-6" />
+                        {c.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">{c.description}</div>
+                      <div className="mt-2 text-xs text-neutral-500 flex items-center gap-3">
+                        <span>{c.employee_count?.toLocaleString()} employees</span>
+                        <span>{c.hq_location}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Community stats */}
+          <div className="mt-20">
+            <h2 className="text-2xl font-bold text-center">Community impact</h2>
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">20k+</div><div className="text-xs text-neutral-500 mt-1">Companies mapped</div></CardContent></Card>
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">1.5M+</div><div className="text-xs text-neutral-500 mt-1">People indexed</div></CardContent></Card>
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">150k+</div><div className="text-xs text-neutral-500 mt-1">Edits contributed</div></CardContent></Card>
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">8k+</div><div className="text-xs text-neutral-500 mt-1">Active contributors</div></CardContent></Card>
+            </div>
+          </div>
+
+          {/* Integrations CTA */}
+          <div className="mt-20">
+            <Card>
+              <CardContent className="p-6 flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 font-semibold"><Plug className="h-4 w-4" /> Integrations & Export</div>
+                  <div className="text-sm text-neutral-600 dark:text-neutral-300 mt-1">Embed charts on your site or export as PNG for decks. API coming soon.</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button asChild variant="outline"><Link href="/embed">Open Embed</Link></Button>
+                  <Button asChild className="bg-red-500 hover:bg-red-600"><Link href="/api">Join API waitlist</Link></Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 

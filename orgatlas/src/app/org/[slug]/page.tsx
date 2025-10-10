@@ -1,7 +1,8 @@
-import { OrgChartViewer } from "@/components/org/OrgChartViewer";
 import { notFound } from "next/navigation";
+import { CompanyOrgClient } from "@/components/company/CompanyOrgClient";
+import { companies } from "@/data/companies";
 
-const demoData: Record<string, Parameters<typeof OrgChartViewer>[0]["data"]> = {
+const demoData: Record<string, { nodes: { id: string; fullName: string; title?: string; managerId?: string }[] }> = {
   microsoft: {
     nodes: [
       { id: "satya", fullName: "Satya Nadella", title: "CEO" },
@@ -21,12 +22,6 @@ export default async function CompanyOrgPage({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const data = demoData[slug];
   if (!data) return notFound();
-  return (
-    <div className="max-w-6xl mx-auto px-6 py-10">
-      <h1 className="text-2xl font-bold">Org chart: {slug}</h1>
-      <div className="mt-6">
-        <OrgChartViewer data={data} />
-      </div>
-    </div>
-  );
+  const company = companies.find((c) => c.slug === slug);
+  return <CompanyOrgClient slug={slug} data={data} company={company} />;
 }

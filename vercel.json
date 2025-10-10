@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "orgatlas/next.config.ts", "use": "@vercel/next" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "orgatlas/$1" }
+  ],
+  "env": {
+    "NEXT_PUBLIC_APP_NAME": "OrgAtlas"
+  }
+}

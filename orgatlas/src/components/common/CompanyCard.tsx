@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import Image from "next/image";
 
 export function CompanyCard({ slug, name, logoUrl, description, followers, jobs }: { slug: string; name: string; logoUrl?: string; description?: string; followers?: number; jobs?: number }) {
   return (
@@ -7,7 +8,7 @@ export function CompanyCard({ slug, name, logoUrl, description, followers, jobs 
       <Card className="hover:shadow-sm transition-shadow">
         <CardHeader>
           <CardTitle className="flex items-center gap-3 text-base">
-            <img src={logoUrl ?? `/${slug}.svg`} alt={name} className="h-6" />
+            <Image src={logoUrl ?? `/${slug}.svg`} alt={name} width={96} height={24} className="h-6 w-auto" />
             {name}
           </CardTitle>
         </CardHeader>

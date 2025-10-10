@@ -66,11 +66,21 @@ export default function PeoplePage() {
           <div className="text-sm text-neutral-600 dark:text-neutral-300">{filtered.length} results</div>
           <div className="text-xs text-neutral-500">Some features are available on paid plans</div>
         </div>
-        <div className="mt-2 space-y-1">
+        <div className="mt-2 space-y-1" role="list" aria-label="People results">
           {filtered.slice(0, 20).map((p) => (
-            <PersonRow key={p.id} name={p.fullName} title={p.title} company={p.companySlug} />
+            <div role="listitem" key={p.id}>
+              <PersonRow name={p.fullName} title={p.title} company={p.companySlug} />
+            </div>
           ))}
         </div>
+        {filtered.length === 0 ? (
+          <div className="mt-4">
+            <div className="animate-pulse space-y-2">
+              <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded" />
+              <div className="h-4 bg-neutral-200 dark:bg-neutral-800 rounded w-5/6" />
+            </div>
+          </div>
+        ) : null}
         {filtered.length > 20 ? (
           <div className="mt-4 p-4 rounded-md border border-dashed border-neutral-300 dark:border-neutral-800 text-sm">
             Upgrade to view more results.

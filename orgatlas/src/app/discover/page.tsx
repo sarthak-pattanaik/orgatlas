@@ -1,4 +1,5 @@
 import { companies } from "@/data/companies";
+import { EmptyState } from "@/components/common/EmptyState";
 import { CompanyCard } from "@/components/common/CompanyCard";
 import { FilterPill } from "@/components/common/FilterPill";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -22,11 +23,17 @@ export default function DiscoverPage() {
         </div>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        {companies.map((c) => (
-          <CompanyCard key={c.id} slug={c.slug} name={c.name} logoUrl={c.logo_url} description={c.description} followers={Math.floor((c.employee_count ?? 1000) / 10)} jobs={Math.floor(Math.random() * 20)} />
-        ))}
-      </div>
+      {companies.length === 0 ? (
+        <div className="mt-6"><EmptyState title="No companies found" description="Try changing your filters" actionHref="/explore" actionLabel="Reset filters" /></div>
+      ) : (
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6" role="list" aria-label="Company results">
+          {companies.map((c) => (
+            <div role="listitem" key={c.id}>
+              <CompanyCard slug={c.slug} name={c.name} logoUrl={c.logo_url} description={c.description} followers={Math.floor((c.employee_count ?? 1000) / 10)} jobs={Math.floor(Math.random() * 20)} />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

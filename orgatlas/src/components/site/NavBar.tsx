@@ -22,7 +22,8 @@ export function NavBar() {
           <Link href="/discover">Discover</Link>
           <Link href="/people">People</Link>
           <Link href="/jobs">Jobs</Link>
-          <Link href="/">AI Mode</Link>
+          <Link href="/ai">AI Mode</Link>
+          <Link href="/pricing">Pricing</Link>
         </nav>
         <div className="ml-auto flex items-center gap-2">
           <div className="hidden sm:block">

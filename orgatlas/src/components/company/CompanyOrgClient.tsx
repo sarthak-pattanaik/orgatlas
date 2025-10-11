@@ -60,7 +60,7 @@ export function CompanyOrgClient({ slug, data, company }: { slug: string; data: 
           </Tabs>
         </div>
         <div>
-          <OrgChartViewer data={data} filterQuery={query} showCTA={true} />
+          <OrgChartViewer data={data} filterQuery={query} />
         </div>
       </div>
     </div>

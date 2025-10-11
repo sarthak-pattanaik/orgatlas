@@ -14,9 +14,6 @@ export default function Home() {
   const [q, setQ] = React.useState("");
   return (
     <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
-      <div className="bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-200 text-xs text-center py-2">
-        You&apos;re on the free plan. Upgrade for unlimited lists, saved contacts, and exports.
-      </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[240px_1fr_280px] gap-8 px-6 py-10">
         {/* Left rail */}
         <aside className="hidden lg:block space-y-4">
@@ -40,14 +37,14 @@ export default function Home() {
 
         {/* Main column */}
         <section>
-          <span className="inline-block text-xs tracking-widest uppercase text-red-500 font-semibold">OrgAtlas</span>
-          <h1 className="mt-4 text-4xl sm:text-6xl font-extrabold tracking-tight">
+          <span className="inline-block text-xs tracking-[0.2em] uppercase text-red-500 font-semibold">OrgAtlas</span>
+          <h1 className="mt-3 text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
             Explore, contribute to, and share company org charts
           </h1>
-          <p className="mt-4 text-lg text-neutral-600 dark:text-neutral-300 max-w-3xl">
+          <p className="mt-3 text-lg text-neutral-600 dark:text-neutral-300 max-w-2xl">
             The enterprise-grade org intelligence platform for SDRs, analysts, recruiters, and researchers.
           </p>
-          <div className="mt-6 max-w-2xl">
+          <div className="mt-6 max-w-xl">
             <div className="flex gap-2">
               <Input
                 placeholder="Search companies or people"
@@ -55,13 +52,13 @@ export default function Home() {
                 onChange={(e) => setQ(e.target.value)}
               />
               <Button asChild className="bg-red-500 hover:bg-red-600">
-                <Link href={q ? `/explore?q=${encodeURIComponent(q)}` : "/explore"}>Search</Link>
+                <Link href={q ? `/discover?q=${encodeURIComponent(q)}` : "/discover"}>Search</Link>
               </Button>
             </div>
           </div>
-          <div className="mt-8 flex items-center gap-4">
+          <div className="mt-6 flex items-center gap-3">
             <Button asChild size="lg" className="bg-red-500 hover:bg-red-600">
-              <Link href="/explore">Explore Companies</Link>
+              <Link href="/discover">Discover Companies</Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <Link href="/org/microsoft">View Demo Org</Link>
@@ -110,26 +107,26 @@ export default function Home() {
           </div>
 
           {/* Suggested companies */}
-          <div className="mt-20">
+          <div className="mt-16">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-bold">Suggested companies</h2>
               <Button asChild variant="link" className="text-red-500">
-                <Link href="/explore">See all</Link>
+                <Link href="/discover">See all</Link>
               </Button>
             </div>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-5">
               {companies.slice(0, 3).map((c) => (
                 <Link key={c.id} href={`/org/${c.slug}`}>
-                  <Card className="hover:shadow-sm transition-shadow">
+                  <Card className="hover:shadow-sm transition-shadow h-full">
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-3 text-base">
+                      <CardTitle className="flex items-center gap-3 text-base leading-none">
                         <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={96} height={24} className="h-6 w-auto" />
                         {c.name}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">{c.description}</div>
-                      <div className="mt-2 text-xs text-neutral-500 flex items-center gap-3">
+                      <div className="text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2 min-h-[40px]">{c.description}</div>
+                      <div className="mt-3 text-xs text-neutral-500 flex items-center gap-3">
                         <span>{c.employee_count?.toLocaleString()} employees</span>
                         <span>{Math.floor((c.employee_count ?? 1000) / 10)} followers</span>
                         <span>{Math.floor(Math.random() * 20)} jobs</span>

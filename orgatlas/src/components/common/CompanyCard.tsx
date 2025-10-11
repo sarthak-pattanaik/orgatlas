@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
-import { Users, Briefcase, Building2 } from "lucide-react";
+import { Users, Briefcase } from "lucide-react";
 
 export function CompanyCard({ slug, name, logoUrl, description, followers, jobs }: { slug: string; name: string; logoUrl?: string; description?: string; followers?: number; jobs?: number }) {
   return (

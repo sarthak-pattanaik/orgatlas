@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import type { SessionUser } from "@/types";
 import { useToast } from "@/components/ui/toast";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -28,6 +29,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { pushToast } = useToast();
+  const track = useAnalytics();
+  const userEmail = user?.email ?? null;
 
   useEffect(() => {
     let isMounted = true;
@@ -74,9 +77,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         description: `Signed in as ${session.name}`,
         variant: "success",
       });
+      track("login_success", { email: session.email });
       return session;
     },
-    [pushToast],
+    [pushToast, track],
   );
 
   const login = useCallback(
@@ -94,11 +98,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(async () => {
     await apiClient.logout();
+    if (userEmail) {
+      track("logout", { email: userEmail });
+    } else {
+      track("logout");
+    }
     setUser(null);
     setStatus("unauthenticated");
     pushToast({ title: "Signed out", description: "You have been logged out.", variant: "warning" });
     router.push("/login");
-  }, [pushToast, router]);
+  }, [pushToast, router, track, userEmail]);
 
   const value = useMemo(
     () => ({

@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogOut, Search, UserRound, ChevronsUpDown } from "lucide-react";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { cn } from "@/lib/utils";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const appTabs = [
   { href: "/app/discover", label: "Discover" },
@@ -16,6 +18,15 @@ const appTabs = [
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, status, logout } = useAuth();
+  const track = useAnalytics();
+
+  useEffect(() => {
+    if (!pathname.startsWith("/app")) {
+      return;
+    }
+    const activeTab = appTabs.find((tab) => pathname.startsWith(tab.href));
+    track("app_tab_view", { tab: activeTab?.label ?? "Unknown", path: pathname });
+  }, [pathname, track]);
 
   return (
     <div className="flex min-h-screen flex-col bg-muted/20">

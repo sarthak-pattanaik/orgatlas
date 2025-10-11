@@ -16,8 +16,8 @@ const oauthProviders = [
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("redirectTo") ?? "/app/discover";
-  const { login, loginAsDemo } = useAuth();
+  const redirectOverride = searchParams.get("redirectTo");
+  const { login, loginAsDemo, lastAttemptedRoute } = useAuth();
   const { pushToast } = useToast();
 
   const [email, setEmail] = useState("");
@@ -32,7 +32,8 @@ export function LoginForm() {
 
     try {
       await login({ email, password });
-      router.push(redirectTo);
+      const destination = redirectOverride ?? lastAttemptedRoute ?? "/app/discover";
+      router.push(destination);
     } catch (err) {
       console.error(err);
       setError(err instanceof Error ? err.message : "Unable to log in");
@@ -47,7 +48,8 @@ export function LoginForm() {
     setIsSubmitting(true);
     try {
       await loginAsDemo();
-      router.push("/app/discover");
+      const destination = redirectOverride ?? lastAttemptedRoute ?? "/app/discover";
+      router.push(destination);
     } catch (err) {
       console.error(err);
       setError("Unable to start demo session");

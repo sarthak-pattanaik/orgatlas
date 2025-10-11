@@ -36,6 +36,11 @@ The app runs on [http://localhost:3000](http://localhost:3000).
 - `npm run build` – build the production bundle.
 - `npm run verify` – lint and build in CI mode.
 
+### Analytics stub
+
+- Client components can call the `useAnalytics` hook (`src/hooks/useAnalytics.ts`) to push events into a lightweight `dataLayer` queue defined in `src/lib/analytics.ts`.
+- Login success and app tab views are already instrumented; wire up additional product events as needed.
+
 ## Authentication flow
 
 Authentication is mocked for local development:

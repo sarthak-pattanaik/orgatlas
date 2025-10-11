@@ -48,44 +48,40 @@
   --font-app-mono: "IBM Plex Mono", "SFMono-Regular", "Segoe UI Mono",
     "Roboto Mono", ui-monospace, monospace;
   --radius: 0.75rem;
-  --background: oklch(0.98 0.01 20);
-  --foreground: oklch(0.21 0.03 20);
-  --card: oklch(0.97 0.01 20);
+  --background: oklch(0.1 0.02 20);
+  --foreground: oklch(0.97 0.02 20);
+  --card: oklch(0.14 0.015 20);
   --card-foreground: var(--foreground);
-  --popover: oklch(0.99 0.005 20);
+  --popover: oklch(0.14 0.015 20);
   --popover-foreground: var(--foreground);
-  --primary: oklch(0.62 0.25 25);
+  --primary: oklch(0.6 0.25 25);
   --primary-foreground: oklch(0.99 0.02 20);
-  --secondary: oklch(0.92 0.01 20);
+  --secondary: oklch(0.18 0.015 20);
   --secondary-foreground: var(--foreground);
-  --muted: oklch(0.94 0.01 20);
-  --muted-foreground: oklch(0.53 0.03 20);
-  --accent: oklch(0.96 0.02 25);
+  --muted: oklch(0.16 0.01 20);
+  --muted-foreground: oklch(0.72 0.03 20);
+  --accent: oklch(0.2 0.03 25);
   --accent-foreground: var(--foreground);
   --destructive: oklch(0.55 0.25 25);
-  --border: oklch(0.9 0.01 20);
-  --input: oklch(0.92 0.01 20);
-  --ring: oklch(0.62 0.25 25);
-  --chart-1: oklch(0.62 0.25 25);
-  --chart-2: oklch(0.62 0.22 20);
-  --chart-3: oklch(0.68 0.18 40);
-  --chart-4: oklch(0.74 0.14 70);
-  --chart-5: oklch(0.78 0.12 110);
-  --sidebar: oklch(0.97 0.01 20);
+  --border: oklch(0.2 0.01 20);
+  --input: oklch(0.16 0.01 20);
+  --ring: oklch(0.6 0.25 25);
+  --chart-1: oklch(0.6 0.25 25);
+  --chart-2: oklch(0.66 0.2 35);
+  --chart-3: oklch(0.72 0.18 55);
+  --chart-4: oklch(0.74 0.14 80);
+  --chart-5: oklch(0.76 0.12 110);
+  --sidebar: oklch(0.12 0.01 20);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--primary-foreground);
-  --sidebar-accent: oklch(0.94 0.01 20);
+  --sidebar-accent: oklch(0.18 0.015 20);
   --sidebar-accent-foreground: var(--foreground);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--ring);
 }
 
 .dark {
-  --font-app-sans: "Helvetica Neue", "Arial", "Segoe UI", "SF Pro Display",
-    -apple-system, BlinkMacSystemFont, "Roboto", "Noto Sans", sans-serif;
-  --font-app-mono: "IBM Plex Mono", "SFMono-Regular", "Segoe UI Mono",
-    "Roboto Mono", ui-monospace, monospace;
   --radius: 0.75rem;
   --background: oklch(0.1 0.02 20);
   --foreground: oklch(0.97 0.02 20);

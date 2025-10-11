@@ -7,72 +7,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { companies } from "@/data/companies";
-import {
-  BarChart,
-  Building2,
-  CheckCircle2,
-  ArrowUpRight,
-  Share2,
-  Users,
-  Target,
-  Sparkles,
-  Plug,
-  Search,
-  Quote,
-  GitBranch,
-} from "lucide-react";
+import { BarChart, Building2, Share2, Users, Target, Sparkles, Plug, Search, GitBranch } from "lucide-react";
 import * as React from "react";
 import Image from "next/image";
 
 export default function Home() {
   const [q, setQ] = React.useState("");
-
-  const getInitials = (value: string) =>
-    value
-      .split(" ")
-      .filter(Boolean)
-      .map((part) => part[0])
-      .join("")
-      .slice(0, 3)
-      .toUpperCase();
-
-  const trustedCustomers = [
-    {
-      name: "Northbeam",
-      team: "Revenue Operations",
-      highlight: "Mapped 180 target accounts and prioritized outreach directly inside Salesforce.",
-      metric: "3x faster sequences",
-      metricDetail: "after 6 weeks",
-    },
-    {
-      name: "Foresight Capital",
-      team: "Investment Research",
-      highlight: "Shares live charts with LPs to accelerate diligence and portfolio reviews.",
-      metric: "40 hrs saved",
-      metricDetail: "per sprint",
-    },
-    {
-      name: "SignalWorks",
-      team: "Market Intelligence",
-      highlight: "Monitors leadership changes and hiring signals across 120 tracked companies.",
-      metric: "Instant alerts",
-      metricDetail: "pushed to Slack",
-    },
-    {
-      name: "Apex Ventures",
-      team: "Platform Team",
-      highlight: "Onboards founders with curated talent maps and executive pipelines.",
-      metric: "6 key hires",
-      metricDetail: "sourced in Q1",
-    },
-    {
-      name: "Stratus AI",
-      team: "People Operations",
-      highlight: "Combines workforce plans with public org data to model hiring scenarios in minutes.",
-      metric: "Single source",
-      metricDetail: "for headcount",
-    },
-  ];
 
   const howItWorks = [
     {
@@ -124,58 +64,36 @@ export default function Home() {
     {
       quote: "OrgAtlas gives our SDRs the confidence to reach out with context in minutes.",
       author: "Marina Patel",
-      role: "Director of Revenue Operations",
-      company: "Northbeam",
+      role: "Revenue Operations, Northbeam",
     },
     {
       quote: "Superb diligence partner — org visibility has become a competitive advantage.",
       author: "Carlos Chen",
-      role: "Principal",
-      company: "Apex Ventures",
+      role: "Principal, Apex Ventures",
     },
     {
       quote: "The clean UI and fast exports make sharing org snapshots effortless for our team.",
       author: "Emma Lutz",
-      role: "Lead Recruiter",
-      company: "Stratus AI",
-    },
-    {
-      quote: "We rely on OrgAtlas signals to prep every leadership briefing and partner update.",
-      author: "Ethan Cho",
-      role: "Head of Market Intelligence",
-      company: "SignalWorks",
+      role: "Lead Recruiter, Stratus AI",
     },
   ];
 
   const onboardingSteps = [
     {
       step: "1. Discover companies",
-      description: "Browse org charts, territories, and hiring signals in one search.",
-      tip: "Import target accounts from Salesforce or HubSpot to enrich instantly.",
-      icon: Search,
+      description: "Browse org charts and map the teams you care about.",
     },
     {
       step: "2. Build people lists",
-      description: "Save buying committees by function, seniority, or geography.",
-      tip: "Tag champions, blockers, and influencers to sync with your sequences.",
-      icon: Users,
+      description: "Save targets by function, seniority, or region.",
     },
     {
       step: "3. Share & export",
-      description: "Embed charts or export live snapshots for briefs and board decks.",
-      tip: "Send updates to Slack or download branded PDFs with one click.",
-      icon: Share2,
+      description: "Embed charts or export snapshots for briefs and decks.",
     },
   ];
 
-  const industries = [
-    { label: "Software", stat: "6,800 org charts", trend: "+12% new signals this quarter" },
-    { label: "IT Services", stat: "4,100 org charts", trend: "Global delivery teams expanding" },
-    { label: "AI", stat: "2,450 org charts", trend: "Funding announcements daily" },
-    { label: "Fintech", stat: "1,980 org charts", trend: "Compliance hiring heats up" },
-    { label: "Manufacturing", stat: "3,300 org charts", trend: "Operational excellence roles growing" },
-    { label: "Healthcare", stat: "2,700 org charts", trend: "Clinical innovation teams scaling" },
-  ];
+  const industries = ["Software", "IT Services", "AI", "Fintech", "Manufacturing", "Healthcare"];
 
   const communityStats = [
     { label: "Companies mapped", value: "20k+" },
@@ -183,52 +101,6 @@ export default function Home() {
     { label: "Edits contributed", value: "150k+" },
     { label: "Active contributors", value: "8k+" },
   ];
-
-  const companySignals: Record<string, string[]> = {
-    tcs: [
-      "Launching a global AI center of excellence in Q3",
-      "Hiring 1,200 consultants across Europe",
-      "Expanding cloud modernization practice",
-    ],
-    microsoft: [
-      "Azure enterprise sales org restructured in North America",
-      "Security engineering headcount up 18% YoY",
-      "New VP of Copilot GTM announced",
-    ],
-    acme: [
-      "Spinning up robotics innovation lab",
-      "Centralizing procurement leadership",
-      "Hiring senior manufacturing engineers",
-    ],
-    northbeam: [
-      "Revenue ops team doubled for EMEA expansion",
-      "Partner success pod stood up for strategic accounts",
-      "Revamped data science leadership bench",
-    ],
-    "stratus-ai": [
-      "Opened Austin talent hub for enterprise delivery",
-      "Investing in executive recruiting partnerships",
-      "New SVP of People Analytics hired",
-    ],
-    "apex-ventures": [
-      "Portfolio talent network grew to 1,400 operators",
-      "Fund II research pod now live",
-      "Dedicated platform partner for GTM enablement",
-    ],
-    signalworks: [
-      "Market intel analysts embedded with product",
-      "Launching executive briefing center",
-      "Expanding coverage to APAC disruptors",
-    ],
-  };
-
-  const featuredCompanies = companies.filter((company) =>
-    ["northbeam", "microsoft", "stratus-ai"].includes(company.id),
-  );
-
-  const trendingCompanies = companies.filter((company) =>
-    ["tcs", "northbeam", "signalworks", "apex-ventures"].includes(company.id),
-  );
 
   const heroHighlights = [
     {
@@ -249,128 +121,75 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-background font-sans">
-      <div className="pointer-events-none absolute -left-40 top-16 h-96 w-96 rounded-full glow-orb" />
-      <div className="pointer-events-none absolute bottom-10 right-10 h-[420px] w-[420px] rounded-full glow-orb" />
-      <div className="pointer-events-none absolute inset-x-1/3 top-1/2 h-80 w-80 -translate-y-1/2 rounded-full glow-orb" />
-
-      <div className="relative mx-auto max-w-6xl px-6 py-16">
-        <section className="space-y-24">
-          <div className="relative overflow-hidden rounded-3xl p-12 surface-panel">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,oklch(0.6_0.25_25/0.25),transparent_60%)]" />
-            <div className="relative grid gap-10 lg:grid-cols-[1.5fr_1fr]">
-              <div className="space-y-8">
-                <span className="section-eyebrow w-fit bg-primary/10 text-primary">
-                  <Sparkles className="h-3.5 w-3.5" /> OrgAtlas platform
-                </span>
-                <h1 className="text-5xl font-semibold leading-tight tracking-tight text-balance sm:text-7xl">
-                  Explore, contribute to, and share company org charts
-                </h1>
-                <p className="max-w-3xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
-                  The enterprise-grade org intelligence platform for SDRs, analysts, recruiters, and researchers. Map decision makers,
-                  understand team structures, and accelerate your research.
-                </p>
-                <div className="max-w-2xl">
-                  <div className="flex flex-col gap-3 sm:flex-row">
-                    <div className="relative flex-1">
-                      <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                      <Input
-                        placeholder="Search companies or people..."
-                        value={q}
-                        onChange={(e) => setQ(e.target.value)}
-                        className="h-12 flex-1 rounded-xl border border-border/60 bg-background/60 pl-12 text-base text-foreground transition-all duration-200 placeholder:text-muted-foreground focus:border-primary focus:bg-background"
-                      />
-                    </div>
-                    <Button asChild size="lg" className="h-12 w-full rounded-xl px-8 font-medium shadow-glow transition-all duration-200 hover:opacity-90 sm:w-auto">
-                      <Link href={q ? `/discover?q=${encodeURIComponent(q)}` : "/discover"}>Search</Link>
-                    </Button>
-                  </div>
-                </div>
-                <div className="flex flex-wrap items-center gap-4">
-                  <Button asChild size="lg" className="h-12 rounded-xl px-8 font-medium shadow-glow transition-all duration-200 hover:opacity-90">
-                    <Link href="/discover">Discover Companies</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="h-12 rounded-xl px-8 font-medium text-primary transition-all duration-200 hover:bg-primary/10 hover:text-primary"
-                  >
-                    <Link href="/org/microsoft">View Demo Org</Link>
-                  </Button>
-                </div>
-              </div>
-
-              <div className="hidden flex-col justify-between gap-6 rounded-2xl border border-border/40 bg-background/30 p-6 shadow-glow backdrop-blur md:flex">
-                {heroHighlights.map((item) => (
-                  <div key={item.label} className="flex items-start gap-3 rounded-xl border border-border/50 bg-background/60 p-4">
-                    <div className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-primary/15 text-primary">
-                      <item.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <div className="font-medium text-foreground">{item.label}</div>
-                      <p className="text-sm text-muted-foreground">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-10 animate-fade-in">
-            <div className="space-y-4 text-center">
-              <span className="section-eyebrow">Trusted by research-driven teams</span>
-              <p className="section-subheading">
-                Revenue, diligence, and people teams use OrgAtlas to visualize structures, surface change, and move with clarity.
+    <main className="min-h-screen bg-background">
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        <section className="space-y-24 animate-slide-up">
+          <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-12 shadow-glow">
+            <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 via-transparent to-transparent opacity-80 blur-3xl"></div>
+            <div className="relative space-y-8">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
+                <Sparkles className="h-4 w-4" />
+                OrgAtlas
+              </span>
+              <h1 className="text-5xl font-bold leading-[1.05] text-balance sm:text-7xl">
+                Explore, contribute to, and share company org charts
+              </h1>
+              <p className="max-w-3xl text-xl leading-relaxed text-muted-foreground">
+                The enterprise-grade org intelligence platform for SDRs, analysts, recruiters, and researchers. Map decision
+                makers, understand team structures, and accelerate your research.
               </p>
-            </div>
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {trustedCustomers.map((customer) => (
-                <Badge
-                  key={customer.name}
-                  className="rounded-full border border-border/50 bg-muted/30 px-4 py-2 text-xs font-medium uppercase tracking-wide text-muted-foreground"
+
+              <div className="max-w-2xl">
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      placeholder="Search companies or people..."
+                      value={q}
+                      onChange={(e) => setQ(e.target.value)}
+                      className="h-12 flex-1 rounded-xl border border-border/60 bg-background/60 pl-12 text-base text-foreground transition-all duration-200 placeholder:text-muted-foreground focus:border-primary focus:bg-background"
+                    />
+                  </div>
+                  <Button asChild size="lg" className="h-12 w-full rounded-xl px-8 font-semibold shadow-glow transition-all duration-200 hover:opacity-90 sm:w-auto">
+                    <Link href={q ? `/discover?q=${encodeURIComponent(q)}` : "/discover"}>Search</Link>
+                  </Button>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-4">
+                <Button asChild size="lg" className="h-12 rounded-xl px-8 font-semibold shadow-glow transition-all duration-200 hover:opacity-90">
+                  <Link href="/discover">Discover Companies</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="h-12 rounded-xl px-8 font-semibold text-primary transition-all duration-200 hover:bg-primary/10 hover:text-primary"
                 >
-                  {customer.name}
-                </Badge>
-              ))}
+                  <Link href="/org/microsoft">View Demo Org</Link>
+                </Button>
+              </div>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {trustedCustomers.map((customer) => (
-                <Card key={customer.name} className="border-border/60 bg-card/80 text-left shadow-glow">
-                  <CardContent className="flex h-full flex-col gap-4 p-6">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex items-center gap-3">
-                        <Avatar className="h-11 w-11 border border-border/40 bg-background/80">
-                          <AvatarFallback className="text-xs font-semibold uppercase text-primary">
-                            {getInitials(customer.name)}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <div className="text-sm font-semibold text-foreground">{customer.name}</div>
-                          <div className="text-xs text-muted-foreground">{customer.team}</div>
-                        </div>
-                      </div>
-                      <Badge className="rounded-full bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                        {customer.metric}
-                      </Badge>
-                    </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{customer.highlight}</p>
-                    <div className="mt-auto flex items-center gap-2 text-xs text-muted-foreground/90">
-                      <CheckCircle2 className="h-4 w-4 text-primary" />
-                      {customer.metricDetail}
-                    </div>
-                  </CardContent>
-                </Card>
+          </div>
+
+          {/* Trusted by */}
+          <div className="animate-fade-in">
+            <div className="mb-8 text-center text-sm font-medium text-muted-foreground">Trusted by research-driven teams</div>
+            <div className="flex flex-wrap items-center justify-center gap-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+              {companies.slice(0, 3).map((c) => (
+                <div key={c.id} className="p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors duration-200">
+                  <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={120} height={30} className="h-8 w-auto" />
+                </div>
               ))}
             </div>
           </div>
 
+          {/* How it works */}
           <div>
-            <div className="mb-16 space-y-6 text-center">
-              <span className="section-eyebrow">How it works</span>
-              <h2 className="section-heading">From search to share in a few clicks</h2>
-              <p className="section-subheading">
-                Get started in minutes with an intuitive workspace designed to keep teams aligned and informed.
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">How it works</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Get started in minutes with our intuitive platform designed for enterprise teams
               </p>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -418,6 +237,25 @@ export default function Home() {
                               {c.industry}
                             </div>
                           </div>
+          {/* Suggested companies */}
+          <div>
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="text-3xl font-bold mb-2">Suggested companies</h2>
+                <p className="text-muted-foreground">Discover organizations that match your research needs</p>
+              </div>
+              <Button asChild variant="outline" className="rounded-xl border-border/60 text-primary hover:bg-primary/10">
+                <Link href="/discover">See all</Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {companies.slice(0, 3).map((c) => (
+                <Link key={c.id} href={`/org/${c.slug}`} className="group block h-full">
+                  <Card className="gradient-card h-full border-border/50 shadow-sm transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="flex items-center gap-4 text-lg font-medium leading-none">
+                        <div className="rounded-lg bg-muted/40 p-2 transition-colors duration-200 group-hover:bg-primary/10">
+                          <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={32} height={32} className="h-8 w-8" />
                         </div>
                         <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary" />
                       </CardTitle>
@@ -433,6 +271,11 @@ export default function Home() {
                         ))}
                       </ul>
                       <div className="mt-auto flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+                    <CardContent>
+                      <div className="min-h-[40px] text-sm text-muted-foreground/90">
+                        {c.description}
+                      </div>
+                      <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <Users className="h-4 w-4" />
                           {c.employee_count?.toLocaleString()} employees
@@ -466,6 +309,12 @@ export default function Home() {
               <h2 className="section-heading">Built for enterprise teams</h2>
               <p className="section-subheading">
                 Powerful tools designed for professionals who need accurate org intelligence at speed.
+          {/* Use cases */}
+          <div>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4">Built for enterprise teams</h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Powerful tools designed for professionals who need accurate org intelligence
               </p>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -515,6 +364,13 @@ export default function Home() {
                       </div>
                     </div>
                   </CardContent>
+          {/* Testimonials */}
+          <div>
+            <h2 className="text-2xl font-bold text-center">What teams say</h2>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[`“Helps our SDRs find champions in minutes.”`, `“Superb for diligence — team structures matter.”`, `“Clean, fast, and easy to share org views.”`].map((quote, i) => (
+                <Card key={i} className="border-border/60 bg-card/80">
+                  <CardContent className="p-6 text-sm text-muted-foreground">{quote}</CardContent>
                 </Card>
               ))}
             </div>
@@ -578,6 +434,49 @@ export default function Home() {
                     </div>
                     <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{industry.trend}</p>
                   </div>
+          {/* Get started */}
+          <div>
+            <h2 className="text-2xl font-bold text-center">Get started in minutes</h2>
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">1. Discover companies</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground">Browse org charts and map the teams you care about.</CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">2. Build people lists</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground">Save targets by function, seniority, or region.</CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-base">3. Share & export</CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground">Embed charts or export snapshots for briefs and decks.</CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Popular industries */}
+          <div>
+            <h2 className="text-2xl font-bold">Popular industries</h2>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {[
+                { label: "Software" },
+                { label: "IT Services" },
+                { label: "AI" },
+                { label: "Fintech" },
+                { label: "Manufacturing" },
+                { label: "Healthcare" },
+              ].map((f) => (
+                <Link
+                  key={f.label}
+                  href={`/discover?industry=${encodeURIComponent(f.label)}`}
+                  className="inline-flex items-center rounded-full border border-border/60 px-3 py-1 text-xs hover:bg-primary/10"
+                >
+                  {f.label}
                 </Link>
               ))}
             </div>
@@ -622,6 +521,29 @@ export default function Home() {
                       <div className="flex items-center gap-2 text-sm font-medium text-foreground">
                         <Users className="h-4 w-4 text-primary" />
                         {c.employee_count?.toLocaleString()} employees
+          {/* Top companies */}
+          <div>
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">Top companies</h2>
+              <Button asChild variant="link" className="text-primary">
+                <Link href="/discover">View more</Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {companies.map((c) => (
+                <Link key={c.id} href={`/org/${c.slug}`} className="group block h-full">
+                  <Card className="border-border/60 bg-card/80 transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-3 text-base font-medium">
+                        <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={96} height={24} className="h-6 w-auto" />
+                        {c.name}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-sm text-muted-foreground line-clamp-3">{c.description}</div>
+                      <div className="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
+                        <span>{c.employee_count?.toLocaleString()} employees</span>
+                        <span>{c.hq_location}</span>
                       </div>
                       {c.hq_location ? (
                         <div className="flex items-center gap-2">
@@ -684,6 +606,30 @@ export default function Home() {
                     <Link href="/embed">Open Embed</Link>
                   </Button>
                   <Button asChild className="rounded-xl font-medium">
+          {/* Community stats */}
+          <div>
+            <h2 className="text-2xl font-bold text-center">Community impact</h2>
+            <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">20k+</div><div className="mt-1 text-xs text-muted-foreground">Companies mapped</div></CardContent></Card>
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">1.5M+</div><div className="mt-1 text-xs text-muted-foreground">People indexed</div></CardContent></Card>
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">150k+</div><div className="mt-1 text-xs text-muted-foreground">Edits contributed</div></CardContent></Card>
+              <Card><CardContent className="p-6 text-center"><div className="text-3xl font-extrabold">8k+</div><div className="mt-1 text-xs text-muted-foreground">Active contributors</div></CardContent></Card>
+            </div>
+          </div>
+
+          {/* Integrations CTA */}
+          <div>
+            <Card className="border-border/60 bg-card/80">
+              <CardContent className="p-6 flex flex-col md:flex-row items-start md:items-center md:justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 font-semibold"><Plug className="h-4 w-4" /> Integrations & Export</div>
+                  <div className="mt-1 text-sm text-muted-foreground">Embed charts on your site or export as PNG for decks. API coming soon.</div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button asChild variant="outline" className="rounded-xl border-border/60 text-primary hover:bg-primary/10">
+                    <Link href="/embed">Open Embed</Link>
+                  </Button>
+                  <Button asChild className="rounded-xl">
                     <Link href="/api">Join API waitlist</Link>
                   </Button>
                 </div>
@@ -696,6 +642,10 @@ export default function Home() {
       <footer className="border-t border-border/60 bg-card/60 py-16">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
+      {/* Footer */}
+      <footer className="border-t border-border/60 bg-card/60 py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>
               <div className="mb-4 font-medium text-foreground">Company</div>
               <ul className="space-y-3">

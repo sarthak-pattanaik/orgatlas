@@ -11,6 +11,113 @@ import Image from "next/image";
 
 export default function Home() {
   const [q, setQ] = React.useState("");
+
+  const howItWorks = [
+    {
+      icon: Building2,
+      title: "Discover",
+      description: "Find companies and teams with powerful search, filters, and saved views.",
+    },
+    {
+      icon: Users,
+      title: "Explore",
+      description: "Zoom, pan, and expand org charts to map key decision makers in seconds.",
+    },
+    {
+      icon: Sparkles,
+      title: "Contribute",
+      description: "Suggest edits, refine titles, and keep structures accurate with crowd insights.",
+    },
+    {
+      icon: Share2,
+      title: "Share",
+      description: "Export, embed, or publish private snapshots for stakeholders across your org.",
+    },
+  ];
+
+  const useCases = [
+    {
+      icon: Target,
+      title: "SDRs",
+      description: "Identify buying committees and route outreach to the right people every time.",
+    },
+    {
+      icon: BarChart,
+      title: "Analysts",
+      description: "Understand org structures to inform diligence, comp sets, and strategy briefs.",
+    },
+    {
+      icon: Users,
+      title: "Recruiters",
+      description: "Map talent pools, monitor hiring signals, and target teams with precision.",
+    },
+    {
+      icon: Building2,
+      title: "Researchers",
+      description: "Compare companies by team shape, headcount, and leadership movements.",
+    },
+  ];
+
+  const testimonials = [
+    {
+      quote: "OrgAtlas gives our SDRs the confidence to reach out with context in minutes.",
+      author: "Marina Patel",
+      role: "Revenue Operations, Northbeam",
+    },
+    {
+      quote: "Superb diligence partner — org visibility has become a competitive advantage.",
+      author: "Carlos Chen",
+      role: "Principal, Apex Ventures",
+    },
+    {
+      quote: "The clean UI and fast exports make sharing org snapshots effortless for our team.",
+      author: "Emma Lutz",
+      role: "Lead Recruiter, Stratus AI",
+    },
+  ];
+
+  const onboardingSteps = [
+    {
+      step: "1. Discover companies",
+      description: "Browse org charts and map the teams you care about.",
+    },
+    {
+      step: "2. Build people lists",
+      description: "Save targets by function, seniority, or region.",
+    },
+    {
+      step: "3. Share & export",
+      description: "Embed charts or export snapshots for briefs and decks.",
+    },
+  ];
+
+  const industries = ["Software", "IT Services", "AI", "Fintech", "Manufacturing", "Healthcare"];
+
+  const communityStats = [
+    { label: "Companies mapped", value: "20k+" },
+    { label: "People indexed", value: "1.5M+" },
+    { label: "Edits contributed", value: "150k+" },
+    { label: "Active contributors", value: "8k+" },
+  ];
+
+  const heroHighlights = [
+    {
+      icon: Users,
+      label: "20k+ org charts",
+      description: "Continuously curated by analysts and operators.",
+    },
+    {
+      icon: BarChart,
+      label: "Signal-rich intel",
+      description: "Data-backed structure changes and hiring signals.",
+    },
+    {
+      icon: Share2,
+      label: "Effortless sharing",
+      description: "Export decks, embed live charts, or create briefs.",
+    },
+  ];
+
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-6xl mx-auto px-6 py-16">
@@ -83,22 +190,17 @@ export default function Home() {
                 Get started in minutes with our intuitive platform designed for enterprise teams
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: Building2, title: "Discover", description: "Find companies and teams with powerful search and filters" },
-                { icon: Users, title: "Explore", description: "Zoom, pan, and expand org charts to map decision makers" },
-                { icon: Sparkles, title: "Contribute", description: "Suggest edits, fix titles, and keep structures up-to-date" },
-                { icon: Share2, title: "Share", description: "Share links, embed charts, or export for decks and briefs" }
-              ].map((item, index) => (
-                <Card key={index} className="gradient-card border-border/50 shadow-sm hover-lift group">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {howItWorks.map((item) => (
+                <Card key={item.title} className="gradient-card border-border/50 shadow-sm hover-lift group">
                   <CardHeader className="pb-4">
-                    <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl gradient-primary transition-transform duration-200 group-hover:scale-110">
                       <item.icon className="h-6 w-6 text-primary-foreground" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{item.title}</CardTitle>
+                    <CardTitle className="text-lg font-medium tracking-tight">{item.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -116,21 +218,23 @@ export default function Home() {
                 <Link href="/discover">See all</Link>
               </Button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {companies.slice(0, 3).map((c) => (
-                <Link key={c.id} href={`/org/${c.slug}`}>
-                  <Card className="gradient-card border-border/50 shadow-sm hover-lift h-full group">
+                <Link key={c.id} href={`/org/${c.slug}`} className="group block h-full">
+                  <Card className="gradient-card h-full border-border/50 shadow-sm transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-xl">
                     <CardHeader className="pb-4">
-                      <CardTitle className="flex items-center gap-4 text-lg leading-none">
-                        <div className="p-2 rounded-lg bg-muted/50 group-hover:bg-primary/10 transition-colors duration-200">
+                      <CardTitle className="flex items-center gap-4 text-lg font-medium leading-none">
+                        <div className="rounded-lg bg-muted/40 p-2 transition-colors duration-200 group-hover:bg-primary/10">
                           <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={32} height={32} className="h-8 w-8" />
                         </div>
                         {c.name}
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-muted-foreground line-clamp-2 min-h-[40px] mb-4">{c.description}</div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="min-h-[40px] text-sm text-muted-foreground/90">
+                        {c.description}
+                      </div>
+                      <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <Users className="h-4 w-4" />
                           {c.employee_count?.toLocaleString()} employees
@@ -145,6 +249,15 @@ export default function Home() {
                 </Link>
               ))}
             </div>
+            <div className="mt-8 flex justify-center">
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-xl border-border/60 text-primary font-medium hover:bg-primary/10"
+              >
+                <Link href="/discover">See all companies</Link>
+              </Button>
+            </div>
           </div>
 
           {/* Use cases */}
@@ -155,22 +268,17 @@ export default function Home() {
                 Powerful tools designed for professionals who need accurate org intelligence
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {[
-                { icon: Target, title: "SDRs", description: "Identify buying committees and route outreach to the right people" },
-                { icon: BarChart, title: "Analysts", description: "Understand org structures to inform research and diligence" },
-                { icon: Users, title: "Recruiters", description: "Map talent pools and target teams with precision" },
-                { icon: Building2, title: "Researchers", description: "Compare companies by team shape, headcount, and leadership" }
-              ].map((item, index) => (
-                <Card key={index} className="gradient-card border-border/50 shadow-sm hover-lift group">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              {useCases.map((item) => (
+                <Card key={item.title} className="gradient-card border-border/50 shadow-sm hover-lift group">
                   <CardHeader className="pb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/30 to-primary/10 transition-transform duration-200 group-hover:scale-110">
                       <item.icon className="h-6 w-6 text-primary" />
                     </div>
-                    <CardTitle className="text-lg font-semibold">{item.title}</CardTitle>
+                    <CardTitle className="text-lg font-medium tracking-tight">{item.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -245,12 +353,12 @@ export default function Home() {
                 <Link href="/discover">View more</Link>
               </Button>
             </div>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {companies.map((c) => (
-                <Link key={c.id} href={`/org/${c.slug}`}>
-                  <Card className="hover:shadow-sm transition-shadow">
+                <Link key={c.id} href={`/org/${c.slug}`} className="group block h-full">
+                  <Card className="border-border/60 bg-card/80 transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-xl">
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-3 text-base">
+                      <CardTitle className="flex items-center gap-3 text-base font-medium">
                         <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={96} height={24} className="h-6 w-auto" />
                         {c.name}
                       </CardTitle>
@@ -306,55 +414,126 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             <div>
-              <div className="font-bold text-foreground mb-4">Company</div>
+              <div className="mb-4 font-medium text-foreground">Company</div>
               <ul className="space-y-3">
-                <li><Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
-                <li><Link href="/careers" className="text-muted-foreground hover:text-foreground transition-colors">Careers</Link></li>
-                <li><Link href="/press" className="text-muted-foreground hover:text-foreground transition-colors">Press</Link></li>
+                <li>
+                  <Link href="/about" className="text-muted-foreground transition-colors hover:text-foreground">
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/careers" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/press" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Press
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <div className="font-bold text-foreground mb-4">Product</div>
+              <div className="mb-4 font-medium text-foreground">Product</div>
               <ul className="space-y-3">
-                <li><Link href="/discover" className="text-muted-foreground hover:text-foreground transition-colors">Discover</Link></li>
-                <li><Link href="/people" className="text-muted-foreground hover:text-foreground transition-colors">People</Link></li>
-                <li><Link href="/jobs" className="text-muted-foreground hover:text-foreground transition-colors">Jobs</Link></li>
+                <li>
+                  <Link href="/discover" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Discover
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/people" className="text-muted-foreground transition-colors hover:text-foreground">
+                    People
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/jobs" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Jobs
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <div className="font-bold text-foreground mb-4">Business</div>
+              <div className="mb-4 font-medium text-foreground">Business</div>
               <ul className="space-y-3">
-                <li><Link href="/pricing" className="text-muted-foreground hover:text-foreground transition-colors">Pricing</Link></li>
-                <li><Link href="/sales" className="text-muted-foreground hover:text-foreground transition-colors">Sales</Link></li>
-                <li><Link href="/partners" className="text-muted-foreground hover:text-foreground transition-colors">Partners</Link></li>
+                <li>
+                  <Link href="/pricing" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/sales" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Sales
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/partners" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Partners
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <div className="font-bold text-foreground mb-4">Developers</div>
+              <div className="mb-4 font-medium text-foreground">Developers</div>
               <ul className="space-y-3">
-                <li><Link href="/api" className="text-muted-foreground hover:text-foreground transition-colors">API</Link></li>
-                <li><Link href="/docs" className="text-muted-foreground hover:text-foreground transition-colors">Docs</Link></li>
-                <li><Link href="/security" className="text-muted-foreground hover:text-foreground transition-colors">Security</Link></li>
+                <li>
+                  <Link href="/api" className="text-muted-foreground transition-colors hover:text-foreground">
+                    API
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/docs" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Docs
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/security" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Security
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
-              <div className="font-bold text-foreground mb-4">Connect</div>
+              <div className="mb-4 font-medium text-foreground">Connect</div>
               <ul className="space-y-3">
-                <li><a href="https://x.com" target="_blank" className="text-muted-foreground hover:text-foreground transition-colors">X</a></li>
-                <li><a href="https://www.linkedin.com" target="_blank" className="text-muted-foreground hover:text-foreground transition-colors">LinkedIn</a></li>
-                <li><a href="mailto:hello@orgatlas.app" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
+                <li>
+                  <a href="https://x.com" target="_blank" className="text-muted-foreground transition-colors hover:text-foreground">
+                    X
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com"
+                    target="_blank"
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:hello@orgatlas.app" className="text-muted-foreground transition-colors hover:text-foreground">
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-border/50 pt-8 md:flex-row">
             <div className="flex items-center gap-2">
-              <div className="p-1 rounded-lg gradient-primary">
-                <GitBranch className="h-4 w-4 text-primary-foreground" />
+              <div className="rounded-lg bg-primary/15 p-1.5">
+                <GitBranch className="h-4 w-4 text-primary" />
               </div>
-              <span className="font-bold text-foreground">OrgAtlas</span>
+              <span className="font-medium text-foreground">OrgAtlas</span>
             </div>
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} OrgAtlas • <Link href="/terms" className="hover:text-foreground transition-colors">Terms</Link> • <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+              © {new Date().getFullYear()} OrgAtlas •
+              <Link href="/terms" className="ml-1 transition-colors hover:text-foreground">
+                Terms
+              </Link>{" "}
+              •
+              <Link href="/privacy" className="ml-1 transition-colors hover:text-foreground">
+                Privacy
+              </Link>
             </div>
           </div>
         </div>

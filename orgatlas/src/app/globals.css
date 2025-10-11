@@ -5,8 +5,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-app-sans);
+  --font-mono: var(--font-app-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -43,6 +43,10 @@
 }
 
 :root {
+  --font-app-sans: "Helvetica Neue", "Arial", "Segoe UI", "SF Pro Display",
+    -apple-system, BlinkMacSystemFont, "Roboto", "Noto Sans", sans-serif;
+  --font-app-mono: "IBM Plex Mono", "SFMono-Regular", "Segoe UI Mono",
+    "Roboto Mono", ui-monospace, monospace;
   --radius: 0.75rem;
   --background: oklch(0.1 0.02 20);
   --foreground: oklch(0.97 0.02 20);
@@ -117,7 +121,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 }
 
@@ -184,7 +188,7 @@
   .hover-lift {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  
+
   .hover-lift:hover {
     transform: translateY(-2px);
     box-shadow: 0 12px 30px oklch(0.6 0.25 25 / 0.2);

@@ -14,9 +14,6 @@ export default function Home() {
   const [q, setQ] = React.useState("");
   return (
     <main className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
-      <div className="bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-200 text-xs text-center py-2">
-        You&apos;re on the free plan. Upgrade for unlimited lists, saved contacts, and exports.
-      </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[240px_1fr_280px] gap-8 px-6 py-10">
         {/* Left rail */}
         <aside className="hidden lg:block space-y-4">

@@ -128,7 +128,7 @@ function useElkLayout() {
   }, [elk]);
 }
 
-export function OrgChartViewer({ data, filterQuery, showCTA = false }: { data: OrgChartData; filterQuery?: string; showCTA?: boolean }) {
+export function OrgChartViewer({ data, filterQuery }: { data: OrgChartData; filterQuery?: string }) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [selected, setSelected] = React.useState<PersonDetails | undefined>(undefined);
@@ -268,18 +268,7 @@ export function OrgChartViewer({ data, filterQuery, showCTA = false }: { data: O
         <MiniMap />
         <Controls />
       </ReactFlow>
-      {showCTA ? (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="pointer-events-auto max-w-sm p-4 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 shadow">
-            <div className="font-semibold">Unlock full org insights</div>
-            <div className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">Upgrade to view deep hierarchies, advanced filters, and exports.</div>
-            <div className="mt-3 flex gap-2">
-              <Button size="sm" className="bg-red-500 hover:bg-red-600">Upgrade</Button>
-              <Button size="sm" variant="outline">Learn more</Button>
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {/* No paywall overlays in current build */}
       <PersonDrawer person={selected} open={open} onOpenChange={setOpen} />
     </div>
   );

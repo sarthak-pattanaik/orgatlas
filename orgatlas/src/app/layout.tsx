@@ -15,8 +15,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OrgAtlas",
+  title: {
+    default: "OrgAtlas",
+    template: "%s · OrgAtlas",
+  },
   description: "Explore and share company org charts",
+  metadataBase: new URL("https://orgatlas.vercel.app"),
+  openGraph: {
+    title: "OrgAtlas",
+    description: "Explore and share company org charts",
+    url: "https://orgatlas.vercel.app",
+    siteName: "OrgAtlas",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OrgAtlas",
+    description: "Explore and share company org charts",
+  },
 };
 
 export default function RootLayout({

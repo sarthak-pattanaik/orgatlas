@@ -1,22 +1,41 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
+import { Users, Briefcase, Building2 } from "lucide-react";
 
 export function CompanyCard({ slug, name, logoUrl, description, followers, jobs }: { slug: string; name: string; logoUrl?: string; description?: string; followers?: number; jobs?: number }) {
   return (
     <Link href={`/org/${slug}`}>
-      <Card className="hover:shadow-sm transition-shadow">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-3 text-base">
-            <Image src={logoUrl ?? `/${slug}.svg`} alt={name} width={96} height={24} className="h-6 w-auto" />
-            {name}
+      <Card className="gradient-card border-border/50 shadow-sm hover-lift h-full group">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-4 text-lg leading-none">
+            <div className="p-3 rounded-xl bg-muted/50 group-hover:bg-primary/10 transition-colors duration-200">
+              <Image src={logoUrl ?? `/${slug}.svg`} alt={name} width={32} height={32} className="h-8 w-8" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold truncate">{name}</div>
+            </div>
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          {description ? <div className="text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">{description}</div> : null}
-          <div className="mt-2 text-xs text-neutral-500 flex items-center gap-3">
-            {typeof followers === "number" ? <span>{followers.toLocaleString()} followers</span> : null}
-            {typeof jobs === "number" ? <span>{jobs} jobs</span> : null}
+        <CardContent className="pt-0">
+          {description ? (
+            <div className="text-muted-foreground line-clamp-3 mb-4 leading-relaxed">
+              {description}
+            </div>
+          ) : null}
+          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            {typeof followers === "number" && (
+              <span className="flex items-center gap-1">
+                <Users className="h-4 w-4" />
+                {followers.toLocaleString()} followers
+              </span>
+            )}
+            {typeof jobs === "number" && (
+              <span className="flex items-center gap-1">
+                <Briefcase className="h-4 w-4" />
+                {jobs} jobs
+              </span>
+            )}
           </div>
         </CardContent>
       </Card>

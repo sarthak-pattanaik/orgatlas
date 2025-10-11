@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { companies } from "@/data/companies";
-import { BarChart, Building2, Share2, Users, Target, Sparkles, Plug } from "lucide-react";
+import { BarChart, Building2, Share2, Users, Target, Sparkles, Plug, Search, GitBranch } from "lucide-react";
 import { StatCard } from "@/components/common/StatCard";
 import * as React from "react";
 import Image from "next/image";

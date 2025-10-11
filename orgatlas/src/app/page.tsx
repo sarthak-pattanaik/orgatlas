@@ -10,6 +10,7 @@ import { companies } from "@/data/companies";
 import { BarChart, Building2, Share2, Users, Target, Sparkles, Plug, Search, GitBranch } from "lucide-react";
 import * as React from "react";
 import Image from "next/image";
+import * as React from "react";
 
 export default function Home() {
   const [q, setQ] = React.useState("");

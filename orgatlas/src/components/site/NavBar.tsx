@@ -1,14 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sun, Moon, GitBranch, Bell, Bookmark, Cog, Search } from "lucide-react";
 
 export function NavBar() {
-  const { theme, setTheme } = useTheme();
-  const toggle = () => setTheme(theme === "dark" ? "light" : "dark");
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = resolvedTheme === "dark";
+  const toggle = () => setTheme(isDark ? "light" : "dark");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -60,15 +68,20 @@ export function NavBar() {
             <Button variant="ghost" size="icon" className="h-9 w-9 hover:bg-accent/50 transition-colors" aria-label="Settings">
               <Cog className="h-4 w-4" />
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggle} 
-              className="h-9 w-9 hover:bg-accent/50 transition-colors" 
+            <Button
+              variant="outline"
+              onClick={toggle}
+              className="relative h-9 px-3 font-medium hover:bg-accent/50 transition-colors"
               aria-label="Toggle theme"
             >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              {mounted && isDark ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+              <span className="ml-2 hidden sm:inline">
+                {mounted ? (isDark ? "Light" : "Dark") : "Theme"}
+              </span>
             </Button>
           </div>
         </div>

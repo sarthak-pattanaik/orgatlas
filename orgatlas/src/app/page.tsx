@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -207,6 +209,34 @@ export default function Home() {
             </div>
           </div>
 
+          <div>
+            <div className="mb-16 space-y-6 text-center">
+              <span className="section-eyebrow">Suggested companies</span>
+              <h2 className="section-heading">Start with momentum-rich organizations</h2>
+              <p className="section-subheading">
+                Curated picks from the OrgAtlas community so you can prioritize accounts already showing signal.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {featuredCompanies.map((c) => (
+                <Link key={c.id} href={`/org/${c.slug}`} className="group block h-full">
+                  <Card className="relative h-full border border-border/50 bg-card/80 transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="flex items-center justify-between gap-4 text-lg font-semibold leading-tight">
+                        <div className="flex items-center gap-4">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-muted/30 text-sm font-semibold uppercase text-foreground/90 transition-colors duration-200 group-hover:bg-primary/10 group-hover:text-primary">
+                            {c.logo_url ? (
+                              <Image src={c.logo_url} alt={c.name} width={44} height={44} className="h-9 w-auto" />
+                            ) : (
+                              getInitials(c.name)
+                            )}
+                          </div>
+                          <div className="text-left">
+                            <div>{c.name}</div>
+                            <div className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground/80">
+                              {c.industry}
+                            </div>
+                          </div>
           {/* Suggested companies */}
           <div>
             <div className="flex items-center justify-between mb-8">
@@ -227,9 +257,20 @@ export default function Home() {
                         <div className="rounded-lg bg-muted/40 p-2 transition-colors duration-200 group-hover:bg-primary/10">
                           <Image src={c.logo_url ?? `/${c.slug}.svg`} alt={c.name} width={32} height={32} className="h-8 w-8" />
                         </div>
-                        {c.name}
+                        <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary" />
                       </CardTitle>
                     </CardHeader>
+                    <CardContent className="flex h-full flex-col gap-4">
+                      <div className="min-h-[48px] text-sm text-muted-foreground/90">{c.description}</div>
+                      <ul className="space-y-2 text-xs text-muted-foreground/90">
+                        {(companySignals[c.id] ?? []).map((signal) => (
+                          <li key={signal} className="flex items-start gap-2">
+                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span>{signal}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="mt-auto flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
                     <CardContent>
                       <div className="min-h-[40px] text-sm text-muted-foreground/90">
                         {c.description}
@@ -239,10 +280,12 @@ export default function Home() {
                           <Users className="h-4 w-4" />
                           {c.employee_count?.toLocaleString()} employees
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Target className="h-4 w-4" />
-                          {Math.floor((c.employee_count ?? 1000) / 10)} followers
-                        </span>
+                        {c.hq_location ? (
+                          <span className="flex items-center gap-1">
+                            <Target className="h-4 w-4" />
+                            {c.hq_location}
+                          </span>
+                        ) : null}
                       </div>
                     </CardContent>
                   </Card>
@@ -260,6 +303,12 @@ export default function Home() {
             </div>
           </div>
 
+          <div>
+            <div className="mb-16 space-y-6 text-center">
+              <span className="section-eyebrow">Use cases</span>
+              <h2 className="section-heading">Built for enterprise teams</h2>
+              <p className="section-subheading">
+                Powerful tools designed for professionals who need accurate org intelligence at speed.
           {/* Use cases */}
           <div>
             <div className="text-center mb-16">
@@ -285,6 +334,36 @@ export default function Home() {
             </div>
           </div>
 
+          <div>
+            <div className="mb-12 space-y-6 text-center">
+              <span className="section-eyebrow">Testimonials</span>
+              <h2 className="section-heading">What teams say</h2>
+              <p className="section-subheading">
+                Customer-first feedback from GTM, diligence, and recruiting partners around the world.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {testimonials.map((testimonial) => (
+                <Card
+                  key={testimonial.author}
+                  className="relative overflow-hidden border-border/60 bg-card/90 shadow-glow transition-all duration-200 hover:border-primary/40 hover:shadow-xl"
+                >
+                  <CardContent className="flex h-full flex-col gap-5 p-6">
+                    <Quote className="h-5 w-5 text-primary" />
+                    <p className="text-sm italic leading-relaxed text-muted-foreground">{testimonial.quote}</p>
+                    <div className="mt-auto flex items-center gap-3 text-left">
+                      <Avatar className="h-10 w-10 border border-border/40 bg-background/80">
+                        <AvatarFallback className="text-xs font-semibold uppercase text-primary">
+                          {getInitials(`${testimonial.author} ${testimonial.company}`)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="space-y-1 text-xs text-muted-foreground">
+                        <div className="text-sm font-semibold text-foreground">{testimonial.author}</div>
+                        <div>{testimonial.role}</div>
+                        <div className="font-medium uppercase tracking-wide text-primary/80">{testimonial.company}</div>
+                      </div>
+                    </div>
+                  </CardContent>
           {/* Testimonials */}
           <div>
             <h2 className="text-2xl font-bold text-center">What teams say</h2>
@@ -297,6 +376,64 @@ export default function Home() {
             </div>
           </div>
 
+          <div>
+            <div className="mb-12 space-y-6 text-center">
+              <span className="section-eyebrow">Get started</span>
+              <h2 className="section-heading">Launch OrgAtlas in minutes</h2>
+              <p className="section-subheading">
+                A guided onboarding flow helps teams import lists, collaborate securely, and deploy insights instantly.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {onboardingSteps.map((step) => (
+                <Card
+                  key={step.step}
+                  className="border-border/60 bg-card/80 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg"
+                >
+                  <CardContent className="flex h-full flex-col gap-4 p-6">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                      <step.icon className="h-5 w-5" />
+                    </div>
+                    <div className="space-y-2 text-left">
+                      <div className="text-base font-semibold text-foreground">{step.step}</div>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+                    </div>
+                    <div className="mt-auto rounded-xl border border-dashed border-border/60 bg-muted/10 p-3 text-xs leading-relaxed text-muted-foreground">
+                      {step.tip}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="mb-8 space-y-4">
+              <span className="section-eyebrow">Popular industries</span>
+              <h2 className="section-heading text-left">Keep tabs on the sectors you care about</h2>
+              <p className="max-w-2xl text-left text-sm text-muted-foreground">
+                Explore live headcount, leadership changes, and hiring momentum across the industries our customers follow most.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              {industries.map((industry) => (
+                <Link
+                  key={industry.label}
+                  href={`/discover?industry=${encodeURIComponent(industry.label)}`}
+                  className="group block h-full"
+                >
+                  <div className="flex h-full flex-col justify-between rounded-2xl border border-border/60 bg-card/70 p-5 transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:bg-card/90">
+                    <div className="flex items-center justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-semibold text-foreground">{industry.label}</div>
+                        <div className="mt-2 inline-flex items-center rounded-full border border-border/50 bg-muted/20 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                          {industry.stat}
+                        </div>
+                      </div>
+                      <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary" />
+                    </div>
+                    <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{industry.trend}</p>
+                  </div>
           {/* Get started */}
           <div>
             <h2 className="text-2xl font-bold text-center">Get started in minutes</h2>
@@ -345,6 +482,45 @@ export default function Home() {
             </div>
           </div>
 
+          <div>
+            <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="space-y-4">
+                <span className="section-eyebrow">Top companies</span>
+                <h2 className="section-heading text-left">See what&apos;s trending on OrgAtlas</h2>
+              </div>
+              <Button asChild variant="link" className="self-start text-primary font-medium md:self-center">
+                <Link href="/discover">View more</Link>
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+              {trendingCompanies.map((c) => (
+                <Link key={c.id} href={`/org/${c.slug}`} className="group block h-full">
+                  <Card className="flex h-full flex-col justify-between border border-border/60 bg-card/80 transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-xl">
+                    <CardHeader className="space-y-4">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted/30 text-xs font-semibold uppercase text-foreground/80 group-hover:bg-primary/10 group-hover:text-primary">
+                            {c.logo_url ? (
+                              <Image src={c.logo_url} alt={c.name} width={56} height={24} className="h-6 w-auto" />
+                            ) : (
+                              getInitials(c.name)
+                            )}
+                          </div>
+                          <div>
+                            <div className="text-base font-semibold text-foreground">{c.name}</div>
+                            <div className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground/80">{c.industry}</div>
+                          </div>
+                        </div>
+                        <Badge className="rounded-full bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                          Trending
+                        </Badge>
+                      </div>
+                      <p className="text-sm leading-relaxed text-muted-foreground">{c.description}</p>
+                    </CardHeader>
+                    <CardContent className="space-y-3 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+                        <Users className="h-4 w-4 text-primary" />
+                        {c.employee_count?.toLocaleString()} employees
           {/* Top companies */}
           <div>
             <div className="flex items-center justify-between">
@@ -369,6 +545,20 @@ export default function Home() {
                         <span>{c.employee_count?.toLocaleString()} employees</span>
                         <span>{c.hq_location}</span>
                       </div>
+                      {c.hq_location ? (
+                        <div className="flex items-center gap-2">
+                          <Target className="h-4 w-4 text-primary" />
+                          {c.hq_location}
+                        </div>
+                      ) : null}
+                      <ul className="space-y-2 pt-2">
+                        {(companySignals[c.id] ?? []).slice(0, 2).map((signal) => (
+                          <li key={signal} className="flex items-start gap-2">
+                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-primary" />
+                            <span>{signal}</span>
+                          </li>
+                        ))}
+                      </ul>
                     </CardContent>
                   </Card>
                 </Link>
@@ -376,6 +566,46 @@ export default function Home() {
             </div>
           </div>
 
+          <div>
+            <div className="mb-12 space-y-6 text-center">
+              <span className="section-eyebrow">Community impact</span>
+              <h2 className="section-heading">Powered by a global network</h2>
+              <p className="section-subheading">
+                Contributors and teams around the globe enrich the dataset so you always have the freshest view.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {communityStats.map((stat) => (
+                <Card key={stat.label} className="border-border/60 bg-card/80 text-center shadow-sm">
+                  <CardContent className="p-6">
+                    <div className="text-3xl font-semibold text-primary">{stat.value}</div>
+                    <div className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">{stat.label}</div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <Card className="border-border/60 bg-card/80">
+              <CardContent className="flex flex-col gap-6 p-6 md:flex-row md:items-center md:justify-between">
+                <div className="space-y-2 text-left">
+                  <div className="flex items-center gap-2 font-medium text-foreground">
+                    <Plug className="h-4 w-4" /> Integrations & Export
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Embed charts on your site or export as PNG for decks. API coming soon.
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-xl border-border/60 text-primary font-medium hover:bg-primary/10"
+                  >
+                    <Link href="/embed">Open Embed</Link>
+                  </Button>
+                  <Button asChild className="rounded-xl font-medium">
           {/* Community stats */}
           <div>
             <h2 className="text-2xl font-bold text-center">Community impact</h2>
@@ -409,6 +639,9 @@ export default function Home() {
         </section>
       </div>
 
+      <footer className="border-t border-border/60 bg-card/60 py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
       {/* Footer */}
       <footer className="border-t border-border/60 bg-card/60 py-16">
         <div className="mx-auto max-w-6xl px-6">

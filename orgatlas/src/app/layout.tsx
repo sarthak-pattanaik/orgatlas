@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { NavBar } from "@/components/site/NavBar";
+
+const mono = IBM_Plex_Mono({
+  variable: "--font-app-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className={`${mono.variable} antialiased`}>
         <Providers>
           <NavBar />
           {children}

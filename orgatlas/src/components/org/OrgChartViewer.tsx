@@ -16,7 +16,6 @@ import "reactflow/dist/style.css";
 import ELK from "elkjs/lib/elk.bundled.js";
 import type { ElkExtendedEdge, ElkNode } from "elkjs";
 import { PersonDrawer, PersonDetails } from "./PersonDrawer";
-import dynamic from "next/dynamic";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";

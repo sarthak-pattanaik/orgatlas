@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { GitBranch, Moon, Sun } from "lucide-react";
 
 const marketingLinks = [
+  { href: "/use-cases", label: "Use Cases" },
   { href: "/about", label: "About" },
   { href: "/pricing", label: "Pricing" },
   { href: "/docs", label: "Docs" },

@@ -5,7 +5,7 @@ import { Users, Briefcase } from "lucide-react";
 
 export function CompanyCard({ slug, name, logoUrl, description, followers, jobs }: { slug: string; name: string; logoUrl?: string; description?: string; followers?: number; jobs?: number }) {
   return (
-    <Link href={`/org/${slug}`}>
+    <Link href={`/app/org/${slug}`}>
       <Card className="gradient-card border-border/50 shadow-sm hover-lift h-full group">
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center gap-4 text-lg leading-none">

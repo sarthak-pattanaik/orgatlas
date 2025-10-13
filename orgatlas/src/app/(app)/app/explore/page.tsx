@@ -8,7 +8,7 @@ export default function ExplorePage() {
       <h1 className="text-2xl font-bold">Explore Companies</h1>
       <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
         {companies.map((c) => (
-          <Link key={c.id} href={`/org/${c.slug}`}>
+          <Link key={c.id} href={`/app/org/${c.slug}`}>
             <Card className="hover:shadow-sm transition-shadow">
               <CardHeader>
                 <CardTitle className="text-lg">{c.name}</CardTitle>

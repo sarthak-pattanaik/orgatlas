@@ -54,7 +54,7 @@ export default function DiscoverPage() {
         {/* Results */}
         {companies.length === 0 ? (
           <div className="mt-12">
-            <EmptyState title="No companies found" description="Try changing your filters" actionHref="/explore" actionLabel="Reset filters" />
+            <EmptyState title="No companies found" description="Try changing your filters" actionHref="/app/explore" actionLabel="Reset filters" />
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list" aria-label="Company results">

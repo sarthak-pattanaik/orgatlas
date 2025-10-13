@@ -56,7 +56,7 @@ function FeaturedCompanyCard({
   signals: string[];
 }) {
   return (
-    <Link href={`/org/${company.slug}`} className="group block h-full">
+    <Link href={`/app/org/${company.slug}`} className="group block h-full">
       <Card className="relative h-full border border-border/50 bg-card/80 transition-transform duration-200 group-hover:-translate-y-1 group-hover:shadow-xl">
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center justify-between gap-4 text-lg font-semibold leading-tight">
@@ -111,7 +111,7 @@ function FeaturedCompanyCard({
 function IndustryCard({ industry }: { industry: IndustryInsight }) {
   return (
     <Link
-      href={`/discover?industry=${encodeURIComponent(industry.label)}`}
+      href={`/app/discover?industry=${encodeURIComponent(industry.label)}`}
       className="group block h-full"
     >
       <div className="flex h-full flex-col justify-between rounded-2xl border border-border/60 bg-card/70 p-5 transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:bg-card/90">
@@ -140,7 +140,7 @@ function TrendingCompanyCard({
   const displayedSignals = signals.slice(0, 2);
 
   return (
-    <Link href={`/org/${company.slug}`} className="group block h-full">
+    <Link href={`/app/org/${company.slug}`} className="group block h-full">
       <Card className="flex h-full flex-col justify-between border border-border/60 bg-card/80 transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-xl">
         <CardHeader className="space-y-4">
           <div className="flex items-start justify-between gap-4">
@@ -475,13 +475,13 @@ export default function Home() {
                       />
                     </div>
                     <Button asChild size="lg" className="h-12 w-full rounded-xl px-8 font-medium shadow-glow transition-all duration-200 hover:opacity-90 sm:w-auto">
-                      <Link href={q ? `/discover?q=${encodeURIComponent(q)}` : "/discover"}>Search</Link>
+                      <Link href="/login">Log in to search</Link>
                     </Button>
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-4">
                   <Button asChild size="lg" className="h-12 rounded-xl px-8 font-medium shadow-glow transition-all duration-200 hover:opacity-90">
-                    <Link href="/discover">Discover Companies</Link>
+                    <Link href="/login">Log in to workspace</Link>
                   </Button>
                   <Button
                     asChild
@@ -489,7 +489,7 @@ export default function Home() {
                     size="lg"
                     className="h-12 rounded-xl px-8 font-medium text-primary transition-all duration-200 hover:bg-primary/10 hover:text-primary"
                   >
-                    <Link href="/org/microsoft">View Demo Org</Link>
+                    <Link href="/waitlist">Request a demo</Link>
                   </Button>
                 </div>
               </div>
@@ -582,7 +582,7 @@ export default function Home() {
                 variant="outline"
                 className="rounded-xl border-border/60 text-primary font-medium hover:bg-primary/10"
               >
-                <Link href="/discover">See all companies</Link>
+                <Link href="/app/discover">See all companies</Link>
               </Button>
             </div>
           </div>
@@ -700,7 +700,7 @@ export default function Home() {
                 <h2 className="section-heading text-left">See what&apos;s trending on OrgAtlas</h2>
               </div>
               <Button asChild variant="link" className="self-start text-primary font-medium md:self-center">
-                <Link href="/discover">View more</Link>
+                <Link href="/app/discover">View more</Link>
               </Button>
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -790,12 +790,12 @@ export default function Home() {
               <div className="mb-4 font-medium text-foreground">Product</div>
               <ul className="space-y-3">
                 <li>
-                  <Link href="/discover" className="text-muted-foreground transition-colors hover:text-foreground">
+                  <Link href="/app/discover" className="text-muted-foreground transition-colors hover:text-foreground">
                     Discover
                   </Link>
                 </li>
                 <li>
-                  <Link href="/people" className="text-muted-foreground transition-colors hover:text-foreground">
+                  <Link href="/app/people" className="text-muted-foreground transition-colors hover:text-foreground">
                     People
                   </Link>
                 </li>

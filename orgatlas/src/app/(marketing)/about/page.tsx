@@ -4,7 +4,7 @@ import { Section } from "@/components/marketing/Section";
 export default function AboutPage() {
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
-      <Hero eyebrow="About" title="We’re mapping how organizations work" subtitle="OrgAtlas helps go-to-market and research teams understand company structures to move faster." ctaPrimary={{ href: "/discover", label: "Explore org charts" }} />
+      <Hero eyebrow="About" title="We’re mapping how organizations work" subtitle="OrgAtlas helps go-to-market and research teams understand company structures to move faster." ctaPrimary={{ href: "/login", label: "Explore the workspace" }} />
       <Section title="Our mission">
         <p>Make organizational knowledge accessible and actionable for every team.</p>
       </Section>

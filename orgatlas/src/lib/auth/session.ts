@@ -3,8 +3,12 @@ import { cache } from "react";
 
 const SESSION_COOKIE = "orgatlas-session";
 
-type SessionPayload = {
+export type SessionPayload = {
+  id: string;
   email: string;
+  name: string;
+  role: string;
+  organization: string;
 };
 
 export const getSession = cache(async () => {
@@ -15,20 +19,19 @@ export const getSession = cache(async () => {
   }
 
   try {
-    const parsed = JSON.parse(sessionCookie) as SessionPayload;
-    if (!parsed?.email) {
+    const parsed = JSON.parse(sessionCookie) as Partial<SessionPayload>;
+    if (!parsed?.email || !parsed.id || !parsed.name || !parsed.role || !parsed.organization) {
       return null;
     }
-    return parsed;
+    return parsed as SessionPayload;
   } catch {
     return null;
   }
 });
 
-export async function createSession(email: string) {
-  const value: SessionPayload = { email };
+export async function createSession(payload: SessionPayload) {
   const cookieStore = await cookies();
-  cookieStore.set(SESSION_COOKIE, JSON.stringify(value), {
+  cookieStore.set(SESSION_COOKIE, JSON.stringify(payload), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

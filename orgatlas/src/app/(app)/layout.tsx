@@ -15,7 +15,7 @@ export default async function AppLayout({
 
   return (
     <div className="min-h-screen bg-background">
-      <AppNavBar userEmail={session.email} />
+      <AppNavBar user={session} />
       <main className="pb-12">{children}</main>
     </div>
   );

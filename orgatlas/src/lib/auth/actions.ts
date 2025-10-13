@@ -1,8 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { DEMO_CREDENTIALS } from "./constants";
 import { createSession, destroySession } from "./session";
+import { verifyUserCredentials } from "./users";
 
 export type AuthState = {
   error?: string;
@@ -16,11 +16,18 @@ export async function loginAction(_: AuthState, formData: FormData): Promise<Aut
     return { error: "Email and password are required." };
   }
 
-  if (email !== DEMO_CREDENTIALS.email || password !== DEMO_CREDENTIALS.password) {
+  const user = verifyUserCredentials(email, password);
+  if (!user) {
     return { error: "Invalid email or password. Use demo@orgatlas.com / demo123." };
   }
 
-  await createSession(email);
+  await createSession({
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+    organization: user.organization,
+  });
   redirect("/app");
 }
 

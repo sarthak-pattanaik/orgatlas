@@ -6,8 +6,10 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Sun, Moon, GitBranch, Bell, Bookmark, Cog, Search } from "lucide-react";
 import { LogoutButton } from "@/components/site/LogoutButton";
+import type { SessionPayload } from "@/lib/auth/session";
 
 const navItems = [
   { href: "/app", label: "Overview" },
@@ -16,7 +18,17 @@ const navItems = [
   { href: "/app/people", label: "People" },
 ];
 
-export function AppNavBar({ userEmail }: { userEmail: string }) {
+function getInitials(name: string) {
+  return name
+    .split(" ")
+    .map((part) => part[0])
+    .filter(Boolean)
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+export function AppNavBar({ user }: { user: SessionPayload }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
@@ -87,9 +99,20 @@ export function AppNavBar({ userEmail }: { userEmail: string }) {
             </Button>
           </div>
 
-          <div className="hidden lg:flex flex-col items-end text-xs text-muted-foreground">
-            <span className="font-medium text-foreground">{userEmail}</span>
-            <span>Authenticated</span>
+          <div className="lg:hidden">
+            <Avatar className="h-9 w-9 border border-border/50">
+              <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+            </Avatar>
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3">
+            <div className="text-right text-xs text-muted-foreground">
+              <span className="block font-semibold text-foreground">{user.name}</span>
+              <span className="block">{user.organization}</span>
+            </div>
+            <Avatar className="h-9 w-9 border border-border/50">
+              <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+            </Avatar>
           </div>
 
           <LogoutButton />

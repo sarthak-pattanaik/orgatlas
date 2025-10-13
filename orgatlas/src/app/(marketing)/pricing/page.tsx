@@ -8,46 +8,50 @@ const accentColor = "#D70000";
 
 const plans = [
   {
-    name: "Free Plan",
-    description: "Basic search and limited chart viewing",
+    name: "Start Free",
+    description: "Start exploring without commitment",
     monthly: 0,
     annual: 0,
     cta: "Get Started",
     href: "/waitlist",
     features: [
-      "5 org charts / month",
-      "Basic search filters",
-      "Public org view only",
+      "5 org chart views per month",
+      "Basic company search",
+      "CSV exports (lite)",
+      "Email change alerts",
     ],
     spotlight: false,
   },
   {
-    name: "Pro Plan",
-    description: "For individuals or small teams",
-    monthly: 89,
-    annual: 79,
-    cta: "Start Free Trial",
+    name: "Pro",
+    description: "Everything you need to win more deals",
+    monthly: 49,
+    annual: 39,
+    cta: "Start 14-day Trial",
     href: "/waitlist",
     features: [
-      "Unlimited charts",
-      "Export and embed",
-      "Leadership & hiring alerts",
-      "Priority refresh",
+      "Unlimited org chart access",
+      "Advanced search and filters",
+      "Full chart exports & embeds",
+      "Real-time alerts on changes",
+      "Team workspace (5 seats)",
     ],
     spotlight: true,
   },
   {
-    name: "Enterprise Plan",
-    description: "For organizations and integrations",
+    name: "Enterprise",
+    description: "Built for scale and security",
     monthly: 0,
     annual: 0,
-    cta: "Book a Demo",
+    cta: "Request Demo",
     href: "/contact",
     features: [
-      "Team workspaces",
-      "API access & SSO",
-      "Custom data enrichment",
+      "Everything in Pro, plus",
+      "Unlimited API calls",
+      "Custom CRM integrations",
       "Dedicated success manager",
+      "SSO & advanced security",
+      "Unlimited team seats",
     ],
     spotlight: false,
   },
@@ -60,16 +64,16 @@ export default function PricingPage() {
     <div className="bg-white" style={{ color: "#1A1A1A" }}>
       <section className="border-b border-[#E6E6E6] bg-white">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#D70000]">
+          <span className="inline-flex items-center justify-center rounded-full border border-[#FFD1D1] bg-[#FFF4F4] px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#D70000]">
             Pricing
-          </p>
-          <h1 className="mt-4 text-[44px] font-bold leading-[1.1] md:text-[56px]">
-            Choose a plan that fits your team.
+          </span>
+          <h1 className="mt-6 text-[44px] font-bold leading-[1.1] md:text-[56px]">
+            Plans that scale with your pipeline.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Start free. Upgrade as your org intelligence needs grow.
+            Start free, then upgrade when you&apos;re ready to unlock deeper insights, alerts, and collaboration.
           </p>
-          <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-[#E6E6E6] bg-white p-2 shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
+          <div className="mt-10 inline-flex items-center gap-2 rounded-full border border-[#E6E6E6] bg-white p-2 shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
             <button
               type="button"
               onClick={() => setBillingCycle("monthly")}
@@ -86,7 +90,7 @@ export default function PricingPage() {
             </button>
           </div>
           <p className="mt-3 text-xs text-muted-foreground">
-            Save 10% with annual billing.
+            Save 20% with annual billing.
           </p>
         </div>
       </section>
@@ -94,30 +98,31 @@ export default function PricingPage() {
       <section className="border-b border-[#E6E6E6] bg-white">
         <div className="mx-auto grid max-w-6xl gap-6 px-6 py-20 md:grid-cols-3">
           {plans.map((plan) => {
-            const isEnterprise = plan.name === "Enterprise Plan";
-            const isFree = plan.name === "Free Plan";
+            const isEnterprise = plan.name === "Enterprise";
+            const isFree = plan.name === "Start Free";
             const price = isEnterprise
-              ? "Contact"
+              ? "Custom"
               : billingCycle === "monthly"
                 ? `$${plan.monthly}`
                 : `$${plan.annual}`;
             const subLabel = isEnterprise
-              ? "Custom"
+              ? "Let’s talk"
               : billingCycle === "monthly"
-                ? "/month"
-                : "/seat / month";
+                ? "per seat / month"
+                : "per seat / month (billed annually)";
 
             return (
               <div
                 key={plan.name}
-                className={`flex h-full flex-col rounded-[24px] border border-[#E6E6E6] bg-white p-8 shadow-[0_20px_45px_rgba(0,0,0,0.08)] transition-transform duration-200 hover:-translate-y-1 ${
+                className={`flex h-full flex-col rounded-[28px] border border-[#E6E6E6] bg-white p-8 shadow-[0_20px_45px_rgba(0,0,0,0.08)] transition-transform duration-200 hover:-translate-y-1 ${
                   plan.spotlight ? "ring-2 ring-[#D70000]/60" : ""
                 }`}
               >
                 {plan.spotlight ? (
-                  <span className="mb-6 inline-flex rounded-full bg-[#D70000]/10 px-4 py-1 text-xs font-semibold text-[#D70000]">
-                    Most popular
-                  </span>
+                  <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#D70000]/10 px-4 py-1 text-xs font-semibold text-[#D70000]">
+                    <span className="inline-block size-2 rounded-full bg-[#D70000]" />
+                    Most Popular
+                  </div>
                 ) : (
                   <span className="mb-6 h-4" />
                 )}
@@ -145,11 +150,10 @@ export default function PricingPage() {
                   <Button
                     asChild
                     size="lg"
-                    variant={plan.spotlight ? "secondary" : "outline"}
-                    className={`${
+                    className={`w-full rounded-[12px] py-6 text-base font-semibold transition-transform ${
                       plan.spotlight
-                        ? "w-full rounded-[12px] border-none bg-[#D70000] py-6 text-white shadow-[0_18px_40px_rgba(215,0,0,0.35)] hover:-translate-y-0.5"
-                        : "w-full rounded-[12px] border-2 border-[#D70000] py-6 text-[#D70000] hover:-translate-y-0.5"
+                        ? "border-none bg-[#D70000] text-white shadow-[0_18px_40px_rgba(215,0,0,0.35)] hover:-translate-y-0.5"
+                        : "border-2 border-[#D70000] bg-white text-[#D70000] hover:-translate-y-0.5"
                     }`}
                   >
                     <a href={plan.href}>{plan.cta}</a>
@@ -173,8 +177,11 @@ export default function PricingPage() {
 
       <section className="bg-[#F5F5F5]">
         <div className="mx-auto max-w-4xl px-6 py-16 text-center">
-          <p className="text-base text-muted-foreground">
-            All plans include access to our live chart viewer and verified org data.
+          <h2 className="text-2xl font-semibold text-[#1A1A1A]">
+            All plans include our live chart viewer, verified data, and support.
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground">
+            Upgrade when you&apos;re ready for deeper automation, CRM integrations, and team collaboration.
           </p>
         </div>
       </section>

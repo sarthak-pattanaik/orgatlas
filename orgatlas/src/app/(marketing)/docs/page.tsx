@@ -62,19 +62,26 @@ const topics = [
   },
 ];
 
+const quickStart = [
+  "Sign up for a free account",
+  "Explore a company in the search bar",
+  "Export: Download org charts in multiple formats",
+  "Get notified when organizations change",
+];
+
 export default function DocsPage() {
   return (
     <div className="bg-white" style={{ color: "#1A1A1A" }}>
       <section className="border-b border-[#E6E6E6] bg-white">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#D70000]">
+          <span className="inline-flex items-center justify-center rounded-full border border-[#FFD1D1] bg-[#FFF4F4] px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#D70000]">
             Docs
-          </p>
-          <h1 className="mt-4 text-[44px] font-bold leading-[1.1] md:text-[56px]">
+          </span>
+          <h1 className="mt-6 text-[44px] font-bold leading-[1.1] md:text-[56px]">
             Learn how to get the most from OrgAtlas.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Step-by-step guides, best practices, and integration notes to help your team work with clarity.
+            Step-by-step guides, best practices, and integration notes to help your team map organizations with confidence.
           </p>
         </div>
       </section>
@@ -113,6 +120,20 @@ export default function DocsPage() {
               </div>
             </aside>
             <div className="space-y-12">
+              <article className="rounded-[24px] border border-[#E6E6E6] bg-white p-8 shadow-[0_20px_45px_rgba(0,0,0,0.08)]">
+                <h2 className="text-2xl font-semibold">Quick Start</h2>
+                <p className="mt-2 text-sm uppercase tracking-[0.18em] text-muted-foreground">
+                  Get going in under 5 minutes
+                </p>
+                <ul className="mt-6 space-y-3 text-base text-muted-foreground">
+                  {quickStart.map((step) => (
+                    <li key={step} className="flex items-start gap-3">
+                      <span className="mt-2 inline-flex size-2.5 rounded-full bg-[#D70000]" />
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
               {topics.map((topic) => (
                 <article
                   key={topic.id}

@@ -30,12 +30,14 @@ export default function AboutPage() {
       <section className="border-b border-[#E6E6E6] bg-white">
         <div className="mx-auto flex max-w-6xl flex-col gap-16 px-6 py-24 lg:flex-row lg:items-center">
           <div className="flex-1 space-y-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#D70000]">About</p>
+            <span className="inline-flex items-center justify-center rounded-full border border-[#FFD1D1] bg-[#FFF4F4] px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#D70000]">
+              About
+            </span>
             <h1 className="text-[44px] font-bold leading-[1.1] text-balance md:text-[56px]">
               Our mission: make organizations transparent.
             </h1>
             <p className="text-lg leading-relaxed text-muted-foreground">
-              We believe decisions are made by people — and understanding those people changes how you sell, hire, and invest.
+              We believe the best business decisions happen when you understand the people behind them. OrgAtlas gives teams clarity into how companies operate so you can build relationships faster.
             </p>
             <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
               {milestones.map((item) => (
@@ -67,13 +69,26 @@ export default function AboutPage() {
           </div>
           <div className="flex-1">
             <div className="relative mx-auto max-w-[460px] rounded-[28px] border border-[#E6E6E6] bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.1)]">
-              <div className="space-y-5 text-lg text-muted-foreground">
-                <p>
-                  OrgAtlas started with a simple goal: to bring structure and clarity to how teams actually work. We combine human curation and machine learning to maintain verified, always-fresh org data.
-                </p>
-                <p>
-                  Today, our community maps leadership shifts, monitors emerging roles, and shares the context that powers smarter go-to-market, recruiting, and research decisions.
-                </p>
+              <div className="flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="flex size-14 items-center justify-center rounded-full bg-[#D70000]/10 text-[#D70000]">
+                    <span className="text-2xl font-semibold">IA</span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#D70000]">
+                      Making organizations transparent
+                    </p>
+                    <p className="text-sm text-muted-foreground">Intelligence + empathy</p>
+                  </div>
+                </div>
+                <div className="space-y-4 text-lg text-muted-foreground">
+                  <p>
+                    OrgAtlas started with a simple observation: people move quickly, org charts don’t. We combine human curation and machine intelligence to keep every structure verified and up to date.
+                  </p>
+                  <p>
+                    Today, thousands of professionals rely on OrgAtlas to map buying committees, monitor leadership changes, and invest with confidence.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

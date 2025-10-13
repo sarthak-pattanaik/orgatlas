@@ -1,4 +1,5 @@
 import { MarketingNavBar } from "@/components/site/MarketingNavBar";
+import { MarketingFooter } from "@/components/site/MarketingFooter";
 
 export default function MarketingLayout({
   children,
@@ -9,6 +10,7 @@ export default function MarketingLayout({
     <div className="min-h-screen bg-background">
       <MarketingNavBar />
       <main>{children}</main>
+      <MarketingFooter />
     </div>
   );
 }

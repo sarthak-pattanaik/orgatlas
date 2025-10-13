@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 const sections = [
@@ -9,6 +10,7 @@ const sections = [
       "See who reports to whom, uncover hidden influencers, and target accounts with context. No more guesswork in outreach.",
     cta: "See SDR workflow →",
     href: "/contact",
+    visual: "/images/use-cases/sdr.svg",
   },
   {
     slug: "recruiting",
@@ -17,6 +19,7 @@ const sections = [
       "Track headcount shifts, promotions, and new openings before competitors do. Get to talent first.",
     cta: "Explore recruiting use case →",
     href: "/contact",
+    visual: "/images/use-cases/recruiting.svg",
   },
   {
     slug: "analyst",
@@ -25,6 +28,7 @@ const sections = [
       "Visualize leadership stability, reporting lines, and departmental maturity to inform your research.",
     cta: "See analyst view →",
     href: "/contact",
+    visual: "/images/use-cases/analyst.svg",
   },
   {
     slug: "research",
@@ -33,6 +37,7 @@ const sections = [
       "Study comparative structures across industries, track leadership moves, and generate insights faster.",
     cta: "See how it works →",
     href: "/contact",
+    visual: "/images/use-cases/research.svg",
   },
 ];
 
@@ -44,14 +49,14 @@ export default function UseCasesPage() {
     <div className="bg-white" style={{ color: neutral }}>
       <section className="border-b border-[#E6E6E6] bg-white">
         <div className="mx-auto max-w-5xl px-6 py-24 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#D70000]">
-            Use Cases
-          </p>
-          <h1 className="mt-4 text-[44px] font-bold leading-[1.1] text-balance md:text-[56px]">
-            Different roles. One need: clarity.
+          <span className="inline-flex items-center justify-center rounded-full border border-[#FFD1D1] bg-[#FFF4F4] px-4 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#D70000]">
+            Proven Workflows
+          </span>
+          <h1 className="mt-6 text-[44px] font-bold leading-[1.1] text-balance md:text-[56px]">
+            Every team wins with better org intelligence.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-            Explore how OrgAtlas helps every team move faster.
+            From first contact to closed deals, OrgAtlas gives SDRs, recruiters, analysts, and researchers a live map of who matters.
           </p>
         </div>
       </section>
@@ -67,6 +72,15 @@ export default function UseCasesPage() {
           >
             <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-2">
               <div className={`order-2 flex flex-col gap-6 ${textOrder}`}>
+                <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#D70000]">
+                  {section.slug === "sdr"
+                    ? "Sales Teams"
+                    : section.slug === "recruiting"
+                      ? "Recruiting"
+                      : section.slug === "analyst"
+                        ? "Analysts"
+                        : "Research"}
+                </span>
                 <h2 className="text-[32px] font-semibold leading-tight">
                   {section.title}
                 </h2>
@@ -81,9 +95,18 @@ export default function UseCasesPage() {
                 </Link>
               </div>
               <div className={`order-1 ${visualOrder}`}>
-                <div className="relative mx-auto max-w-[360px] rounded-[24px] border border-[#E6E6E6] bg-white p-6 shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between rounded-[18px] bg-[#F7F7F7] p-4">
+                <div className="relative mx-auto max-w-[420px] overflow-hidden rounded-[28px] border border-[#E6E6E6] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+                  <div className="relative h-[260px] w-full">
+                    <Image
+                      src={section.visual}
+                      alt={section.title}
+                      fill
+                      className="object-cover"
+                      sizes="(min-width: 768px) 420px, 100vw"
+                    />
+                  </div>
+                  <div className="space-y-4 p-6">
+                    <div className="flex items-center justify-between rounded-[16px] bg-[#F7F7F7] p-4">
                       <span className="text-sm font-semibold" style={{ color: neutral }}>
                         {section.slug === "sdr"
                           ? "Buying committee"
@@ -94,7 +117,7 @@ export default function UseCasesPage() {
                               : "Research snapshot"}
                       </span>
                       <span className="rounded-full bg-[#D70000]/10 px-3 py-1 text-xs font-medium text-[#D70000]">
-                        Insight
+                        Live insight
                       </span>
                     </div>
                     <div className="space-y-3 text-sm text-muted-foreground">

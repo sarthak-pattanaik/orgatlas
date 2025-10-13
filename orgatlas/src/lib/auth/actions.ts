@@ -1,14 +1,12 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { DEMO_CREDENTIALS } from "./constants";
 import { createSession, destroySession } from "./session";
 
 export type AuthState = {
   error?: string;
 };
-
-const DEMO_EMAIL = "demo@orgatlas.com";
-const DEMO_PASSWORD = "demo123";
 
 export async function loginAction(_: AuthState, formData: FormData): Promise<AuthState> {
   const email = formData.get("email");
@@ -18,20 +16,15 @@ export async function loginAction(_: AuthState, formData: FormData): Promise<Aut
     return { error: "Email and password are required." };
   }
 
-  if (email !== DEMO_EMAIL || password !== DEMO_PASSWORD) {
+  if (email !== DEMO_CREDENTIALS.email || password !== DEMO_CREDENTIALS.password) {
     return { error: "Invalid email or password. Use demo@orgatlas.com / demo123." };
   }
 
-  createSession(email);
+  await createSession(email);
   redirect("/app");
 }
 
 export async function logoutAction() {
-  destroySession();
+  await destroySession();
   redirect("/");
 }
-
-export const demoCredentials = {
-  email: DEMO_EMAIL,
-  password: DEMO_PASSWORD,
-};

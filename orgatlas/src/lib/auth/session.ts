@@ -7,8 +7,9 @@ type SessionPayload = {
   email: string;
 };
 
-export const getSession = cache(() => {
-  const sessionCookie = cookies().get(SESSION_COOKIE)?.value;
+export const getSession = cache(async () => {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get(SESSION_COOKIE)?.value;
   if (!sessionCookie) {
     return null;
   }
@@ -24,9 +25,10 @@ export const getSession = cache(() => {
   }
 });
 
-export function createSession(email: string) {
+export async function createSession(email: string) {
   const value: SessionPayload = { email };
-  cookies().set(SESSION_COOKIE, JSON.stringify(value), {
+  const cookieStore = await cookies();
+  cookieStore.set(SESSION_COOKIE, JSON.stringify(value), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
@@ -35,6 +37,7 @@ export function createSession(email: string) {
   });
 }
 
-export function destroySession() {
-  cookies().delete(SESSION_COOKIE);
+export async function destroySession() {
+  const cookieStore = await cookies();
+  cookieStore.delete(SESSION_COOKIE);
 }

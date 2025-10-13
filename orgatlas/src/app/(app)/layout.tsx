@@ -2,12 +2,12 @@ import { redirect } from "next/navigation";
 import { AppNavBar } from "@/components/site/AppNavBar";
 import { getSession } from "@/lib/auth/session";
 
-export default function AppLayout({
+export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = getSession();
+  const session = await getSession();
 
   if (!session) {
     redirect("/login");
